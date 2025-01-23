@@ -7,6 +7,9 @@ import Features from "./Features";
 import GetStarted from "./GetStarted";
 import Hero from "./Hero";
 import Testimonials from "./Testimonials";
+import { Menu } from "lucide-react";
+import Categories from "./Categories";
+import Support from "./Support";
 
 function SellerOnboarding() {
     const[active, setActive] = useState(false)
@@ -28,11 +31,14 @@ function SellerOnboarding() {
             <span className="font-bold text-3xl leading-none text-black">Duka</span>
             <Image src='/logo.svg' alt='logo' width={30} height={30} />
             </Link>
-            <button className='bg-[#0073e6]  text-white rounded-md px-8 py-3'>Create store</button>
+            <Menu className="md:hidden" />
+            <button className='bg-[#0073e6] hidden md:block text-white rounded-md px-8 py-3'>Create store</button>
         </nav>
         <Hero/>
        <GetStarted/>
+       <Categories/>
         <Features/>
+        <Support/>
         <Testimonials/>
 
     </main>

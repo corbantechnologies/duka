@@ -1,5 +1,7 @@
 'use client';
 
+import Image from "next/image";
+
 const testimonials = [
     {
         name: "Emma",
@@ -35,15 +37,23 @@ const testimonials = [
 
 function Testimonials() {
   return (
-    <div className="px-4 md:px-8 flex flex-col md:flex-row gap-5 mt-3 lg:mt-8 w-full overflow-auto md:py-5">
+    <div className="px-4 md:px-8 py-10 bg-white">
+        <div className="flex gap-1 justify-center md:justify-start items-center">
+                                <Image src='/logo.svg' alt='logo' width={30} height={30} />
+                        <p className="text-xs font-semibold">TESTIMONIALS</p>
+                            </div>
+                            <h2 className="text-2xl text-center md:text-left md:text-4xl font-semibold">What do other entrepreneurs
+                            say about Duka?</h2>
+    <div className="flex flex-col md:flex-row gap-5 mt-3 lg:mt-8 w-full overflow-auto md:py-5">
                 {testimonials.map((testimonial,index)=>(
-                    <article key={index} className="bg-white p-3 md:p-10 rounded-xl flex-shrink-0 max-w-[350px]">
+                    <article key={index} className="bg-[#fcfcfc] border-2 border-[#f4f4f4] p-3 md:p-10 rounded-xl flex-shrink-0 max-w-[350px]">
                         <h3 className="text-xl md:text-2xl font-semibold">{testimonial.title}</h3>
                         <p className="text-gray-600  my-2 md:my-4">{testimonial.testimonial}</p>
                         <p className="font-semibold">{testimonial.name}</p>
                     </article>
                 ))}
             </div>
+    </div>
   )
 }
 

@@ -61,13 +61,13 @@ function GetStarted() {
     <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mt-5">
       <div className="flex gap-2 w-full overflow-auto pb-5 md:flex-col md:justify-center">
               {steps.map((cat)=>(
-                  <article key={cat.step} onClick={() => handleSelect(cat)} className={`text-sm min-w-[300px]  border ${selectedCategory.step === cat.step ? 'border-blue-100 bg-blue-50':'border-transparent'} rounded-lg px-4 py-2`}>
-                      <p className="text-lg font-semibold mb-1 flex items-center gap-2"> <span className="text-[#0073e6]">{cat.icon}</span> {cat.step}</p>
+                  <article key={cat.step} onClick={() => handleSelect(cat)} className={`text-sm min-w-[300px] cursor-pointer border border-blue-100 ${selectedCategory.step === cat.step ? 'bg-blue-50':''} rounded-lg px-4 py-4`}>
+                      <p className="text-lg font-semibold mb-3 flex items-center gap-2"> <span className="text-[#0073e6]">{cat.icon}</span> {cat.step}</p>
                       <p className="text-gray-700 flex items-center gap-1">{cat.description}</p>
                   </article>
               ))}
           </div>
-          <div className="rounded-xl overflow-hidden h-[250px] md:h-[400px]">
+          <div className="rounded-xl border border-2 overflow-hidden h-[250px] md:h-[400px]">
                 <Image src={selectedCategory.image} alt='user' width={500} height={500} className="object-cover w-full h-full"/>
             </div>
     </div>
