@@ -43,13 +43,13 @@ function Features() {
                     <Image src='/logo.svg' alt='logo' width={30} height={30} />
             <p className="text-xs font-semibold">FEATURES</p>
                 </div>
-            <h2 className="text-2xl text-center md:text-4xl font-semibold">Explore the awesome <br className="md:hidden" /> features you get</h2>
+            <h2 className="text-3xl text-center md:text-4xl font-semibold">Explore the awesome <br className="md:hidden" /> features you get</h2>
             <p className="mt-8 text-center max-w-screen-lg mx-auto text-[17px]">Duka is committed to providing the most efficient and advanced features in the e-commerce space.  We are constantly listening to our user's feedback to improve our platform and offer new features to our community!</p>
             <div className="flex flex-col gap-5 mt-8 w-full overflow-auto md:py-5 max-w-screen-lg mx-auto">
                 {features.map((feature,index)=>(
                     <article key={index} className="grid grid-cols-1 md:grid-cols-2 group gap-5 mb-5 md:mb-16 rounded-xl flex-shrink-0 ">
                         <div className="md:group-even:col-start-2 md:row-start-1">
-                        <h3 className="text-xl md:text-4xl font-semibold">{feature.feature}</h3>
+                        <h3 className="text-2xl md:text-4xl font-semibold">{feature.feature}</h3>
                         <p className="text-[17px] my-2 md:my-4">{feature.description}</p>
                         <span className="flex items-center gap-2 text-primary underline text-[17px]">Get started <MoveRight size={16} /></span>
                         </div>

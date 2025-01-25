@@ -34,9 +34,9 @@ function Categories() {
     <div className="px-4 lg:px-8 py-10 lg:py-16">
             <div className="flex gap-1 justify-center md:justify-start items-center">
                         <Image src='/logo.svg' alt='logo' width={30} height={30} />
-                <p className="text-xs font-semibold">AM I IN THE RIGHT PLACE?</p>
+                <p className="text-xs font-semibold">WHAT CAN YOU SELL?</p>
                     </div>
-                <h2 className="text-2xl text-center md:text-left md:text-4xl font-semibold">Get a store and sell <br className="md:hidden" /> anything, legal🫵 </h2>
+                <h2 className="text-3xl text-center md:text-left md:text-4xl font-semibold">Get a store and sell <br className="md:hidden" /> anything, legal🫵 </h2>
                 <div className="flex flex-row gap-5 mt-8 w-full overflow-auto md:py-5">
                         {categories.map((cat)=>(
                             <article key={cat.name} className="rounded-md overflow-hidden relative flex-shrink-0 max-w-[350px]">

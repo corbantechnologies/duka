@@ -57,7 +57,7 @@ function GetStarted() {
             <Image src='/logo.svg' alt='logo' width={30} height={30} />
     <p className="text-xs font-semibold">E-COMMERCE MADE EASY</p>
         </div>
-    <h2 className="text-2xl mt-3 text-center md:text-left md:text-4xl font-semibold">Get up and running in no time</h2>
+    <h2 className="text-3xl mt-3 text-center md:text-left md:text-4xl font-semibold">Get up and running in no time</h2>
     <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mt-5">
       <div className="flex gap-2 w-full overflow-auto pb-5 md:flex-col md:justify-center">
               {steps.map((cat)=>(

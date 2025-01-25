@@ -5,15 +5,15 @@ import Image from "next/image";
 
 function Hero() {
   return (
-    <div className="pt-40 md:pt-20 min-h-screen px-4 lg:px-8 grid items-center gap-5 grid-cols-1 md:grid-cols-2 place-content-center overflow-hidden">
+    <div className="pt-36 md:pt-20 min-h-screen px-4 lg:px-8 grid items-center gap-5 grid-cols-1 md:grid-cols-2 place-content-center overflow-hidden">
       <div className="max-w-screen-sm mt-5 md:mt-0">
-        <p className="font-semibold text-sm md:text-base text-center md:text-left text-gray-600">
+        <p className="md:font-semibold text-sm md:text-base text-center md:text-left text-gray-600">
           Get Started Fast, Easily and Affordably.
         </p>
-        <h1 className="text-3xl text-center md:text-left md:text-4xl lg:text-5xl font-bold my-3 md:my-4 ">
+        <h1 className="text-center md:text-left text-4xl lg:text-5xl font-bold my-3 md:my-4 ">
           Create Your Dream <br /> Online Store
         </h1>
-        <p className="font-semibold text-center md:text-left text-gray-600 md:text-lg">
+        <p className="md:font-semibold text-center md:text-left text-gray-600 md:text-lg">
           Whether you&apos;re just getting started, or want to expand your
           market reach, our platform helps your business grow.
         </p>
@@ -30,7 +30,7 @@ function Hero() {
                     <Image src='/logo.svg' alt='logo' width={30} height={30} />
             <p className="text-xs font-semibold">JOIN OUR COMMUNITY</p>
                 </div>
-          <h2 className="text-xl text-center font-semibold mb-5">Loved by buyers, trusted by sellers everywhere</h2>
+          <h2 className="text-2xl text-center font-semibold mb-5">Loved by buyers, trusted by sellers everywhere</h2>
         <div className="flex justify-center">
           <img src="/Tony2.jpg" alt="user" className="size-9 rounded-full border-2 border-white -ml-2" />
           <img src="/react2.jpg" alt="user" className="size-9 rounded-full border-2 border-white -ml-2" />
@@ -41,7 +41,7 @@ function Hero() {
           <span className="size-9 rounded-full bg-slate-100 grid place-content-center text-[9px] border-2 border-white -ml-2">1000+</span>
         </div>
         </div>
-          <div className="flex flex-col md:flex-row items-center md:justify-around mt-4 md:mt-8 gap-5">
+          <div className="flex flex-col md:flex-row items-center md:justify-around mt-4 md:mt-8 mb-8 gap-5">
             <span className="flex flex-col items-center gap-2 p-4 rounded-lg">
               <span className="text-3xl md:text-4xl font-semibold">3k+</span>
               <span className="md:text-lg font-semibold">Daily site traffic</span>
