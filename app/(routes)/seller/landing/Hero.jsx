@@ -5,7 +5,7 @@ import Image from "next/image";
 
 function Hero() {
   return (
-    <div className="pt-36 md:pt-20 min-h-screen px-4 lg:px-8 grid items-center gap-5 grid-cols-1 md:grid-cols-2 place-content-center overflow-hidden">
+    <div className="pt-28 md:pt-20 min-h-screen px-4 lg:px-8 grid items-center gap-5 grid-cols-1 md:grid-cols-2 place-content-center overflow-hidden">
       <div className="max-w-screen-sm mt-5 md:mt-0">
         <p className="md:font-semibold text-sm md:text-base text-center md:text-left text-gray-600">
           Get Started Fast, Easily and Affordably.
