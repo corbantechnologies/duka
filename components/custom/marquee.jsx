@@ -1,49 +1,82 @@
-import Marquee from "@/components/ui/marquee";
+import { cn } from "@/lib/utils";
+import Marquee from "../ui/marquee";
 
-const logos = [
+const reviews = [
   {
-    name: "E-commerce example 1",
-    img: "/marquee1.png",
+    name: "Jack",
+    username: "@jack",
+    body: "I've never seen anything like this before. It's amazing. I love it.",
+    img: "https://i.etsystatic.com/11651126/r/il/d76bf6/5753982272/il_600x600.5753982272_41ig.jpg",
   },
   {
-    name: "E-commerce example 2",
-    img: "/marquee2.png",
+    name: "Jill",
+    username: "@jill",
+    body: "I don't know what to say. I'm speechless. This is amazing.",
+    img: "https://i.etsystatic.com/43790300/r/il/15e507/6401998736/il_600x600.6401998736_tv40.jpg",
   },
   {
-    name: "E-commerce example 3",
-    img: "/marquee3.png",
+    name: "John",
+    username: "@john",
+    body: "I'm at a loss for words. This is amazing. I love it.",
+    img: "https://i.etsystatic.com/54757727/c/1307/1307/345/381/il/0ec30b/6294906136/il_600x600.6294906136_chtg.jpg",
   },
   {
-    name: "E-commerce example 4",
-    img: "/marquee4.png",
-  }
+    name: "Jane",
+    username: "@jane",
+    body: "I'm at a loss for words. This is amazing. I love it.",
+    img: "https://i.etsystatic.com/ij/733dca/6586968809/ij_600x600.6586968809_q0zid5sd.jpg?version=0",
+  },
+  {
+    name: "Jenny",
+    username: "@jenny",
+    body: "I'm at a loss for words. This is amazing. I love it.",
+    img: "https://i.etsystatic.com/25304800/r/il/b9d4bd/6297597679/il_600x600.6297597679_bc6n.jpg",
+  },
+  {
+    name: "James",
+    username: "@james",
+    body: "I'm at a loss for words. This is amazing. I love it.",
+    img: "https://i.etsystatic.com/11118406/c/2048/2048/0/0/il/4e57ad/3571041628/il_600x600.3571041628_d0kp.jpg",
+  },
 ];
 
-export function Marquee3D() {
-  return (
-    <div className="relative flex h-full min-w-full flex-col items-center justify-center gap-4 overflow-hidden rounded-lg border bg-transparent px-20 ">
-      <div className="flex flex-row gap-4 [perspective:300px]">
-        <Marquee
-          className="h-96 justify-center overflow-hidden [--duration:60s] [--gap:1rem]"
-          vertical
-          style={{
-            transform:
-              "translateX(0px) translateY(0px) translateZ(-50px) rotateX(0deg) rotateY(-20deg) rotateZ(10deg) scale(1.5)",
-          }}
-        >
-          {logos.map((data, idx) => (
-            <img
-              key={idx}
-              src={data.img}
-              alt={data.name}
-              className="mx-auto h-full w-3/4 cursor-pointer rounded-xl border border-neutral-300 transition-all duration-300 hover:ring-1 hover:ring-neutral-300"
-            />
-          ))}
-        </Marquee>
-      </div>
+const firstRow = reviews.slice(0, reviews.length / 2);
+const secondRow = reviews.slice(reviews.length / 2);
+const thirdRow = reviews.slice(0, reviews.length / 2);
 
-      <div className="pointer-events-none absolute inset-y-0 left-0 w-1/3 bg-gradient-to-r from-white dark:from-background"></div>
-      <div className="pointer-events-none absolute inset-y-0 right-0 w-1/3 bg-gradient-to-l from-white dark:from-background"></div>
+const ReviewCard = ({
+  img,
+}) => {
+  return (
+    <figure
+      className={cn(
+        "relative w-64 cursor-pointer overflow-hidden rounded-xl ",
+        
+      )}
+    >
+        <img className="rounded-lg object-cover w-full" alt="" src={img} />
+    </figure>
+  );
+};
+
+export function MarqueeDemo() {
+  return (
+    <div className="relative flex h-screen w-full flex-col items-center justify-center overflow-hidden">
+      <Marquee pauseOnHover className="[--duration:40s]">
+        {firstRow.map((review) => (
+          <ReviewCard key={review.username} {...review} />
+        ))}
+      </Marquee>
+      <Marquee reverse pauseOnHover className="[--duration:60s]">
+        {secondRow.map((review) => (
+          <ReviewCard key={review.username} {...review} />
+        ))}
+      </Marquee>
+      <Marquee pauseOnHover className="[--duration:40s]">
+        {thirdRow.map((review) => (
+          <ReviewCard key={review.username} {...review} />
+        ))}
+      </Marquee>
     </div>
   );
 }

@@ -1,6 +1,5 @@
 "use client";
 
-import { Marquee3D } from "@/components/custom/marquee";
 import Image from "next/image";
 
 function Hero() {

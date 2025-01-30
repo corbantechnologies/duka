@@ -76,3 +76,6 @@ body {
   color: transparent;
   -webkit-text-stroke: 1px #656565; 
 }
+.radial-bg {
+  background-image: radial-gradient(150% 50% at 50% 50%, white, transparent);
+}

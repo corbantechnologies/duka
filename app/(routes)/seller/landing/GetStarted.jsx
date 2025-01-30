@@ -67,7 +67,7 @@ function GetStarted() {
                   </article>
               ))}
           </div>
-          <div className="rounded-xl border border-2 overflow-hidden h-[250px] md:h-[400px]">
+          <div className="rounded-xl border-2 overflow-hidden h-[250px] md:h-[400px]">
                 <Image src={selectedCategory.image} alt='user' width={500} height={500} className="object-cover w-full h-full"/>
             </div>
     </div>

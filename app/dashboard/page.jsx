@@ -1,15 +1,23 @@
 "use client"
 import { signOut, useSession } from 'next-auth/react'
-import React from 'react'
+import { useRouter } from 'next/navigation';
+import React, { useEffect } from 'react'
 
 function Dashboard() {
   const { data: session } = useSession();
+  const router = useRouter();
+  console.log('session',session)
+  useEffect(()=>{
+    if(!session?.user?.name){
+      router.push('/')
+    }
+  },[])
 
   return (
     <>
       <div>Dashboard</div>
       <h1 className="font-bold">Hello {session?.user?.name}</h1>
-      <button onClick={() => signOut()} className='bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded'>Logout</button>
+      <button onClick={() => signOut({callbackUrl:'/'})} className='bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded'>Logout</button>
 
     </>
 
