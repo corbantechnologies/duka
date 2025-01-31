@@ -12,7 +12,7 @@ const sellers = [
 function FeaturedSellers() {
   return (
     <div className="px-4 lg:px-8">
-        <h1 className="text-2xl font-semibold">Discover our Top Sellers</h1>
+        <h1 className="text-3xl font-semibold">Discover our Top Sellers</h1>
         <div className="grid mt-3 grid-cols-1 gap-4 sm:grid-cols-2">
             {sellers.map((seller)=>(
                 <div key={seller} className="h-[300px] overflow-hidden relative rounded-lg group">

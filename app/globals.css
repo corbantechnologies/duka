@@ -70,6 +70,17 @@ body {
     @apply bg-background text-foreground;
   }
 }
+@layer utilities {
+  /* Hide scrollbar for Chrome, Safari and Opera */
+  .no-scrollbar::-webkit-scrollbar {
+      display: none;
+  }
+ /* Hide scrollbar for IE, Edge and Firefox */
+  .no-scrollbar {
+      -ms-overflow-style: none;  /* IE and Edge */
+      scrollbar-width: none;  /* Firefox */
+}
+}
 .outlined-text {
   font-size: 48px;
   font-weight: 800;
@@ -77,5 +88,6 @@ body {
   -webkit-text-stroke: 1px #656565; 
 }
 .radial-bg {
-  background-image: radial-gradient(150% 50% at 50% 50%, white, transparent);
+  /* background-image: radial-gradient(150% 50% at 50% 50%, white, transparent); */
+  background: radial-gradient(circle, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0) 70%);
 }
