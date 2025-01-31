@@ -46,7 +46,7 @@ function Categories() {
                         ))}
                             <article className="rounded-md bg-primary w-[330px] overflow-hidden grid place-content-center flex-shrink-0 max-w-[350px]">
                             <div className="flex flex-col gap-1 justify-center items-center">
-                        <Image src='/logo.svg' alt='logo' width={150} height={150} />
+                        <Image src='/cartLogo.png' alt='logo' width={150} height={150} />
                 <p className="text-2xl text-center text-white">Build your online business <br /> with DUKA TODAY</p>
                         <button className="bg-white px-4 animate-bounce py-2 rounded-sm my-2 md:my-4">Get started now</button>
                     </div>
