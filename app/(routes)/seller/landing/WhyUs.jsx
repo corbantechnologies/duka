@@ -41,7 +41,7 @@ function WhyUs() {
   return (
     <div className="px-4 lg:px-8 bg-white py-10 lg:py-16">
         <div className="flex gap-1 justify-center md:justify-start items-center">
-                    <Image src='/logo.svg' alt='logo' width={30} height={30} />
+                    <Image src='/cartLogo.png' alt='logo' width={20} height={20} />
             <p className="text-xs font-semibold">WHY BUILD WITH DUKA?</p>
                 </div>
             <h2 className="text-2xl text-center md:text-left md:text-4xl font-semibold">An amazing experience <br className="md:hidden" /> for you</h2>

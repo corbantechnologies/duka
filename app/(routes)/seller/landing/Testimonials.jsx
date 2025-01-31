@@ -33,12 +33,12 @@ function Testimonials() {
   return (
     <div className="px-4 md:px-8 py-10 bg-white">
         <div className="flex gap-1 justify-center md:justify-start items-center">
-                                <Image src='/logo.svg' alt='logo' width={30} height={30} />
+                                <Image src='/cartLogo.png' alt='logo' width={20} height={20} />
                         <p className="text-xs font-semibold">TESTIMONIALS</p>
                             </div>
                             <h2 className="text-3xl text-center md:text-left md:text-4xl font-semibold">What do other entrepreneurs
                             say about Duka?</h2>
-    <div className="flex flex-row gap-5 mt-3 lg:mt-8 w-full overflow-auto md:py-5">
+    <div className="flex flex-row gap-5 mt-3 lg:mt-8 w-full overflow-auto pb-3 md:py-5">
                 {testimonials.map((testimonial,index)=>(
                     <article key={index} className="bg-[#fcfcfc] border-2 border-[#f4f4f4] p-6 md:p-10 rounded-xl flex-shrink-0 max-w-[350px]">
                         <div className="flex gap-2 items-center">

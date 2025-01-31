@@ -5,7 +5,7 @@ import ProductList from './ProductList'
 function Recents() {
   return (
     <div>
-        <h1 className="text-3xl mb-5">You were interested in these</h1>
+        <h1 className="text-2xl lg:text-3xl font-semibold mb-5">You showed interest</h1>
         <ProductList/>
     </div>
   )

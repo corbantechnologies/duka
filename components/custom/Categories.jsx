@@ -27,10 +27,10 @@ function Categories() {
 
   return (
     <div className="px-4 lg:px-8">
-        <h1 className="text-3xl font-semibold">Shop our most popular categories</h1>
-        <div className="flex flex-row gap-5 mt-3 w-full overflow-auto no-scrollbar">
+        <h1 className="text-2xl lg:text-3xl font-semibold">Shop our most popular categories</h1>
+        <div className="flex flex-wrap gap-5 mt-3 w-full overflow-auto no-scrollbar">
         {recents.map((recent)=>(
-            <div key={recent.img} className="flex-shrink-0 w-[200px]">
+            <div key={recent.img} className="flex-shrink-0 max-w-[150px] md:max-w-[180px] lg:w-[200px]">
               <div>
                 <img className="rounded-lg object-cover mb-1" alt="images of recent views" src={recent.img} />
                 <p>{recent.title}</p>

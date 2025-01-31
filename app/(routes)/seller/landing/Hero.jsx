@@ -26,7 +26,7 @@ function Hero() {
         </div>
         <div className="my-10 md:hidden">
          <div className="flex gap-1 justify-center md:justify-start items-center">
-                    <Image src='/logo.svg' alt='logo' width={30} height={30} />
+                    <Image src='/cartLogo.png' alt='logo' width={20} height={20} />
             <p className="text-xs font-semibold">JOIN OUR COMMUNITY</p>
                 </div>
           <h2 className="text-2xl text-center font-semibold mb-5">Loved by buyers, trusted by sellers everywhere</h2>

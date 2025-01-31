@@ -8,7 +8,7 @@ function Support() {
     <div className="px-4 lg:px-8 py-10 lg:py-16">
         <div className="max-w-screen-lg mx-auto">
       <div className="flex gap-1 justify-center items-center">
-        <Image src="/logo.svg" alt="logo" width={30} height={30} />
+        <Image src="/cartLogo.png" alt="logo" width={20} height={20} />
         <p className="text-xs font-semibold">WE&apos;RE JUST WHAT YOU NEED</p>
       </div>
       <h1 className="text-3xl mb-3 md:text-4xl text-center font-bold">Supporting your <br className="md:hidden" /> growth every step of the way</h1>

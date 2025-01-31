@@ -36,9 +36,9 @@ const recents = [
   ];
 function ProductList({wrap}) {
   return (
-    <div className={`flex flex-row ${wrap ? 'md:flex-wrap' : ''} gap-5 mt-3 w-full no-scrollbar overflow-auto`}>
+    <div className={`flex flex-wrap gap-5 mt-3 w-full no-scrollbar overflow-auto`}>
         {recents.map((recent)=>(
-            <Link href='/listing/0912409563' key={recent.img} className={`flex-shrink-0 ${wrap ? 'w-[200px] md:w-[120px]' : 'w-[200px]'}`}>
+            <Link href='/listing/0912409563' key={recent.img} className={`flex-shrink-0 max-w-[150px] md:max-w-[180px] lg:w-[200px]`}>
               <div>
                 <img className="rounded-lg object-cover mb-1" alt="images of recent views" src={recent.img} />
                 <p className='text-lg'>{recent.title}</p>

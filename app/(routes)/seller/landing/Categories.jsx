@@ -33,7 +33,7 @@ function Categories() {
   return (
     <div className="px-4 lg:px-8 py-10 lg:py-16">
             <div className="flex gap-1 justify-center md:justify-start items-center">
-                        <Image src='/logo.svg' alt='logo' width={30} height={30} />
+                        <Image src='/cartLogo.png' alt='logo' width={20} height={20} />
                 <p className="text-xs font-semibold">WHAT CAN YOU SELL?</p>
                     </div>
                 <h2 className="text-3xl text-center md:text-left md:text-4xl font-semibold">Get a store and sell <br className="md:hidden" /> anything, legal🫵 </h2>

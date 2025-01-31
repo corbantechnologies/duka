@@ -2,7 +2,7 @@ import Image from "next/image"
 
 function Footer() {
   return (
-    <footer className="py-8 px-4 lg:px-8 mt-10 bg-[#f8f5f1]">
+    <footer className="py-8 px-4 lg:px-8 bg-[#f8f5f1]">
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 py-5">
       <div>
         <Image src='/logo2.png' alt='logo' width={100} height={80} />

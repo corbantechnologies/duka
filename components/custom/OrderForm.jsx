@@ -27,7 +27,7 @@ function OrderForm() {
       <div className="space-y-1">
         <p className="text-xl">My awesome product name</p>
         <p className="flex items-center gap-2">
-          <span className="text-2xl font-semibold">KSH 340.00</span>
+          <span className="text-xl font-semibold">KSH 340.00</span>
           <span className=" line-through text-sm text-gray-700 ">
             KSH 440.00
           </span>

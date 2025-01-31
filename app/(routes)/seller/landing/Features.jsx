@@ -40,7 +40,7 @@ function Features() {
   return (
     <div className="px-4 lg:px-8 bg-white py-10 ">
         <div className="flex gap-1 justify-center items-center">
-                    <Image src='/logo.svg' alt='logo' width={30} height={30} />
+                    <Image src='/cartLogo.png' alt='logo' width={20} height={20} />
             <p className="text-xs font-semibold">FEATURES</p>
                 </div>
             <h2 className="text-3xl text-center md:text-4xl font-semibold">Explore the awesome <br className="md:hidden" /> features you get</h2>

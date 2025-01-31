@@ -21,7 +21,7 @@ export function ProductCarousel() {
         </div>
         ))}
       </div>
-    <Carousel className="md:ml-14 lg:ml-20 w-[220px] md:w-full md:max-w-md">
+    <Carousel className="md:ml-14 lg:ml-20 max-w-[250px] md:w-full md:max-w-md">
       <CarouselContent>
         {Array.from({ length: 5 }).map((_, index) => (
           <CarouselItem key={index}>

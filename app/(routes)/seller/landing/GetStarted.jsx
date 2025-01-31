@@ -54,7 +54,7 @@ function GetStarted() {
   return (
     <div className="px-4 lg:px-8 bg-white py-16">
         <div className="flex gap-1 justify-center md:justify-start items-center">
-            <Image src='/logo.svg' alt='logo' width={30} height={30} />
+            <Image src='/cartLogo.png' alt='logo' width={20} height={20} />
     <p className="text-xs font-semibold">E-COMMERCE MADE EASY</p>
         </div>
     <h2 className="text-3xl mt-3 text-center md:text-left md:text-4xl font-semibold">Get up and running in no time</h2>
