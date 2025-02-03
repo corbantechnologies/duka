@@ -26,7 +26,7 @@ function FeaturedSellers() {
                 <span className="text-sm">4.2 ⭐</span>
                 </div>
                 </div>
-                <div className="flex items-center gap-5">
+                <div className="flex items-center flex-col sm:flex-row gap-3 sm:gap-5">
                 <button className="border-2 border-gray-900 transition-all duration-300 hover:bg-primary hover:text-white hover:border-transparent py-1 px-3 gap-2 rounded-full flex items-center">
                     <Heart size={18}/> Follow
                 </button>
