@@ -4,7 +4,7 @@ import MoreProducts from "@/components/custom/MoreProducts";
 import OrderForm from "@/components/custom/OrderForm";
 import { ProductCarousel } from "@/components/custom/ProductCarousel";
 import ProductSuggestions from "@/components/custom/ProductSuggestions";
-import Reviews from "@/components/custom/Reviews";
+import ProductInfo from "@/components/custom/ProductInfo";
 import Recents from "@/components/custom/Recents";
 import { Heart } from "lucide-react";
 import { use } from "react";
@@ -27,7 +27,7 @@ function Listing({ params }) {
       <section className="space-y-10">
         <section className="md:flex gap-10">
           <div className="flex-1">
-        <Reviews />
+        <ProductInfo />
           </div>
           <div className="flex-1 mt-10 md:mt-0">
         <MoreProducts />

@@ -1,5 +1,6 @@
 'use client';
 
+import { Heart, ShoppingCart } from "lucide-react";
 import Link from "next/link";
 
 const recents = [
@@ -34,18 +35,36 @@ const recents = [
       dummy:'KSH 1700'
     },
   ];
-function ProductList({wrap}) {
+function ProductList() {
+
+  const handleCart = (e) => {
+    alert("Cart clicked");
+    e.stopPropagation();
+  };
   return (
-    <div className={`flex flex-wrap gap-5 mt-3 w-full no-scrollbar overflow-auto`}>
+    <div className={`flex gap-5 mt-3 w-full no-scrollbar snap-x overflow-auto`}>
         {recents.map((recent)=>(
-            <Link href='/listing/0912409563' key={recent.img} className={`flex-shrink-0 max-w-[150px] md:max-w-[180px] lg:w-[200px]`}>
+          <div key={recent.img} className="relative snap-start flex-shrink-0 max-w-[120px] md:max-w-[150px] lg:max-w-[200px]">
+            <Link href='/listing/0912409563' key={recent.img} className='relative'>
               <div>
                 <img className="rounded-lg object-cover mb-1" alt="images of recent views" src={recent.img} />
-                <p className='text-lg'>{recent.title}</p>
-                <p className='font-semibold' >{recent.price}</p>
+                <p>{recent.title}</p>
+                <p className='font-semibold text-base' >{recent.price}</p>
                 <p className="line-through text-gray-700 text-sm">{recent.dummy}</p>
               </div>
             </Link>
+                <div className="absolute top-1 left-1 space-y-2">
+                  <button onClick={handleCart} className="bg-white transition-all duration-300 hover:bg-primary hover:text-white shadow size-7 lg:size-8 rounded-full grid place-content-center">
+                    <ShoppingCart size={15}/>
+                  </button>
+                  <button className="bg-white transition-all duration-300 hover:bg-primary hover:text-white shadow size-7 lg:size-8 rounded-full grid place-content-center">
+                    <Heart size={15}/>
+                  </button>
+                </div>
+            <button className="border border-gray-300 text-gray-700 transition-all duration-300 hover:border-transparent hover:bg-primary hover:text-white mt-2 py-2 px-4 text-sm rounded-md grid place-content-center">
+                    Buy now
+                  </button>
+            </div>
         ))}
         </div>
   )

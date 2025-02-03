@@ -1,3 +1,4 @@
+'use client'
 import Cta from '@/components/custom/Cta'
 import Hero from '@/components/custom/Hero'
 import Categories from '@/components/custom/Categories'
