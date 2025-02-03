@@ -97,7 +97,7 @@ function OrderForm() {
           </Select>
         </div>
       </div>
-      <Button className='w-full text-[17px]'>Add to Cart</Button>
+      <button className='w-full py-2 bg-primary text-white text-[17px]'>Add to Cart</button>
       <div>
       <Accordion type="single" collapsible className="w-full">
       <AccordionItem value="item-1">

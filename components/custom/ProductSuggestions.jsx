@@ -22,7 +22,7 @@ function ProductSuggestions() {
                 <div className="flex items-center gap-2">
                 <Image src={sellers[index]} width={60} height={60} alt='shop banner' className="rounded size-[50px] lg:size-[60px] object-cover"/>
                 <div className="flex flex-col gap-1">
-                <h2 className="text-xl font-semibold">{`Top Seller ${index + 1}`}</h2>
+                <h2 className="text-xl font-semibold">{`Related Seller ${index + 1}`}</h2>
                 <span className="text-sm">4.2 ⭐</span>
                 </div>
                 </div>

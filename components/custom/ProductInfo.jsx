@@ -7,7 +7,7 @@ function ProductInfo() {
   const stars = Array(5).fill("⭐");
   return (
     <div className="border py-4 px-3 rounded-xl">
-      <ul className="flex gap-2 border-b pb-4 justify-between text-lg">
+      <ul className="flex flex-col sm:flex-row gap-2 border-b pb-4 justify-between text-lg">
         <li>
           <button onClick={()=>setReviewsTabActive(false)} className={`py-2 px-5 rounded-full ${!reviewsTabActive ? "bg-slate-100" : "outline outline-gray-300 outline-[1px] bg-transparent"}`}>Product description</button>
         </li>
