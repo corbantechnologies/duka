@@ -4,11 +4,11 @@ import { useRouter } from 'next/navigation';
 import React, { useEffect } from 'react'
 
 function Dashboard() {
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
   const router = useRouter();
   console.log('session',session)
   useEffect(()=>{
-    if(!session?.user?.name){
+    if(status !== "authenticated" && status !== "loading"){
       router.push('/')
     }
   },[])
