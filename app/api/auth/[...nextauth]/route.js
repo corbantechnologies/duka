@@ -15,11 +15,11 @@ const handler = NextAuth({
       //   },
       //   password: { label: "Password", type: "password" },
       // },
-      name:'credentials',
+      name: "credentials",
       async authorize(credentials, req) {
         const { email, password } = credentials;
         const response = await fetch(
-          `${process.env.NEXT_PUBLIC_BASE_URL}/api/accounts/token/api/auth/login/`,
+          `${process.env.NEXT_PUBLIC_BASE_URL}/api/auth/login/`,
           {
             method: "POST",
             headers: {
@@ -29,6 +29,8 @@ const handler = NextAuth({
           }
         );
         const user = await response?.json();
+
+        console.log(user)
 
         if (response?.ok && user) {
           return user;
@@ -72,8 +74,8 @@ const handler = NextAuth({
             }
           );
 
-
           const data = await response?.json();
+
 
           if (response?.ok && data) {
             return {
@@ -92,13 +94,20 @@ const handler = NextAuth({
 
           throw new Error("An error occured! Please try again.");
         }
+      } else if (account?.provider === "credentials") {
+        return {
+          ...token,
+          ...user,
+        };
       }
+
       return { ...token, ...user };
     },
 
     async session({ session, token }) {
       session.user = {
         ...session.user,
+        ...token,
         accessToken: token.accessToken,
         idToken: token.idToken,
       };
