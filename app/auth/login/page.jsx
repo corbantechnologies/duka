@@ -52,11 +52,13 @@ function Login() {
   const handleLoginWithGoogle = async (e) => {
     e.preventDefault();
     try {
-      await signIn("google", { callbackUrl: "/dashboard" });
-      const ses = await getSession();
-      console.log(ses);
-    } catch (error) {}
+      await signIn("google", { callbackUrl: "/auth/callback" });
+    } catch (error) {
+      toast.error("Google sign-in failed. Please try again.");
+    }
   };
+
+
   return (
     <main className="p-5 h-screen flex flex-col">
       <div>

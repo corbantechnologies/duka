@@ -3,8 +3,7 @@ import { useSession } from "next-auth/react";
 
 function useUserId() {
   const { data: session } = useSession();
-  const userId = session?.user?.id;
-  return userId;
+  return session?.user?.id;
 }
 
 export default useUserId;

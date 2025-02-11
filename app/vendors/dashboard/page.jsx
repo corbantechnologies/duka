@@ -2,15 +2,20 @@
 import { useFetchUser } from "@/hooks/accounts/actions";
 import { signOut } from "next-auth/react";
 import React from "react";
+import { useSession } from "next-auth/react";
+
 
 function Dashboard() {
+  const { data: session } = useSession();
+  console.log(session);
+
   const {
     isLoading: isLoadingAccount,
     data: account,
     refetch: refetchAccount,
   } = useFetchUser();
 
-  console.log(account);
+  // console.log(account);
 
   return (
     <div>
