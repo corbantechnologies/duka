@@ -42,8 +42,7 @@ function Login() {
     <main className="p-5 h-screen flex flex-col">
         <div>
         <Link href='/' className="flex items-end">
-            <span className="font-bold text-3xl leading-none text-black">Duka</span>
-            <Image src='/logo.svg' alt='logo' width={30} height={30} />
+            <Image src='/logo2.png' alt='logo' width={100} height={80} />
             </Link>
         </div>
         <div className="flex-grow py-5 place-content-center w-[460px] mx-auto">

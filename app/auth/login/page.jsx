@@ -2,6 +2,7 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Loader2 } from "lucide-react";
 import { signIn } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
@@ -30,8 +31,7 @@ function Login() {
             }else{
               setLoading(false);
               toast.success('Signin successful');
-              console.log(res)
-              // router.push('/')
+              router.push('/dashboard')
             }
           } catch (error) {
             setLoading(false);
@@ -41,12 +41,11 @@ function Login() {
   return (
     <main className="p-5 h-screen flex flex-col">
         <div>
-        <Link href='/' className="flex items-end">
-            <span className="font-bold text-3xl leading-none text-black">Duka</span>
-            <Image src='/logo.svg' alt='logo' width={30} height={30} />
+        <Link href='/' className="flex gap-1 items-center">
+            <Image src='/logo2.png' alt='logo' width={100} height={80} />
             </Link>
         </div>
-        <div className="flex-grow py-5 place-content-center w-[460px] mx-auto">
+        <div className="flex-grow py-5 place-content-center w-full md:w-[460px] mx-auto">
             <div className="border rounded-lg p-8">
 
         <h1 className="text-4xl text-center mb-8">Log in to Duka</h1>
@@ -72,7 +71,7 @@ function Login() {
                     <Input id='password' name='password' type='password' onChange={handleChange} />
                 </div>
                 <div className="flex justify-center w-full">
-                <Button disabled={loading} >{loading ? 'Loading...' : "Login"}</Button>
+                <Button disabled={loading} >{loading ? <Loader2 className="animate-spin" /> : "Login"}</Button>
                 </div>
             </form>
             </div>
