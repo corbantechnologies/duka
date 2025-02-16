@@ -21,16 +21,13 @@ function Login() {
         setLoading(true)
         const {email, password} = formValues;
         try {
-          console.log(email,password)
             const res = await signIn("credentials",{email, password, redirect:false});
             if (res.error) {
               toast.error('Invalid credentials');
-              console.log(res)
               setLoading(false);
             }else{
               setLoading(false);
               toast.success('Signin successful');
-              console.log(res)
               // router.push('/')
             }
           } catch (error) {

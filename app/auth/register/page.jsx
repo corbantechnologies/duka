@@ -145,7 +145,7 @@ function Register() {
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}
-            className="space-y-8 w-[500px] mx-auto"
+            className="space-y-8 md:w-[500px] mx-auto"
           >
             <input type="file" onChange={handleFileChange} />
             <div className="flex gap-3">
