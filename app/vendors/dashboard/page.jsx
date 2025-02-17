@@ -1,9 +1,6 @@
 "use client";
 import { useFetchUser } from "@/hooks/accounts/actions";
-import { signOut } from "next-auth/react";
-import React from "react";
-import { useSession } from "next-auth/react";
-
+import { signOut, useSession } from "next-auth/react";
 
 function Dashboard() {
   const { data: session } = useSession();

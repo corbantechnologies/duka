@@ -27,3 +27,98 @@ export const signUpVendor = async (values) => {
 export const signUpCustomer = async (values) => {
   await urlActions?.post(`/api/auth/signup/customer/`, values);
 };
+
+export const createStore = async (values, axiosAuth) => {
+  try {
+    const {data} = await urlMultipartActions.post(`/api/shops/`, values, axiosAuth);
+    return data;
+    
+  } catch (error) {
+    console.log('Error creating store', error)
+    return error;
+  }
+}
+
+export const getShops = async (axios) => {
+  try {
+    const {data} = await urlMultipartActions.get("/api/shops/list", axios);
+    return data.results;
+  } catch (error) {
+    console.log('Error fetching shops', error)
+    return error;
+  }
+};
+
+export const getSingleShop = async (dukaId, axiosAuth) => {
+  try {
+    const {data} = await urlMultipartActions.get(`/api/shops/${dukaId}`, axiosAuth);
+    return data;
+  } catch (error) {
+    console.log('Error fetching shops', error)
+    return error;
+  }
+};
+
+export const getCategories = async (axios) => {
+  try {
+    const {data} = await urlMultipartActions.get("/api/categories/list", axios);
+    return data.results;
+  } catch (error) {
+    console.log('Error fetching categories', error)
+    return error;
+  }
+};
+
+export const createProduct = async (values, axiosAuth) => {
+  try {
+    const response = await urlMultipartActions.post(`/api/products/`, values, axiosAuth);
+    if (response.status === 201) {
+      return { success: true };
+    }
+  } catch (error) {
+    console.log('Error creating product', error)
+    return error;
+  }
+};
+
+export const updateProduct = async (slug, values, axiosAuth) => {
+  try {
+    const {data} = await urlMultipartActions.patch(`/api/products/${slug}/`, values, axiosAuth);
+    return data;
+  } catch (error) {
+    console.log('Error updating product', error)
+    throw error
+  }
+};
+
+export const deleteProduct = async (slug, axiosAuth) => {
+  try {
+    const response = await urlMultipartActions.delete(`/api/products/${slug}/`, axiosAuth);
+    if (response.status === 204) {
+      return { success: true };
+    }
+  } catch (error) {
+    console.log('Error deleting product', error)
+    throw error
+  }
+};
+
+export const getProducts = async (axiosAuth) => {
+  try {
+    const {data} = await urlMultipartActions.get("/api/products/", axiosAuth);
+    return data.results;
+  } catch (error) {
+    console.log('Error fetching products', error)
+    return error;
+  }
+};
+
+export const getSingleProduct = async (slug, axiosAuth) => {
+  try {
+    const { data } = await urlMultipartActions.get(`/api/products/${slug}/`, axiosAuth);
+    return data;
+  } catch (error) {
+    console.error('Error fetching single product:', error);
+    throw error;
+  }
+};

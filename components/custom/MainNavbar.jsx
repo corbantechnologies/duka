@@ -53,7 +53,7 @@ function MainNavbar() {
         <ShoppingCart />
         </li>
         <li>
-            <button className='bg-primary text-white py-2 px-5 rounded-md'>Sign in</button>
+            <button className='bg-primary text-white py-2 px-5 rounded-md'> <Link href='/auth/login'>Sign in</Link> </button>
         </li>
     </ul>
     <Menu className="md:hidden text-black" />

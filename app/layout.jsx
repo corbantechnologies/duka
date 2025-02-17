@@ -1,8 +1,9 @@
 "use client";
-import { Toaster } from "react-hot-toast";
-import "./globals.css";
 import NextAuthProvider from "@/providers/NextAuthProvider";
+import "./globals.css";
+import { Toaster } from "react-hot-toast";
 import TanstackQueryProvider from "@/providers/TanstackQueryProvider";
+import { ModalProvider } from "@/providers/modalProvider";
 
 export default function RootLayout({ children }) {
   return (
@@ -15,8 +16,9 @@ export default function RootLayout({ children }) {
         <Toaster position="top-center" />
         <NextAuthProvider>
           <TanstackQueryProvider>
+            <ModalProvider/>
             {children}
-            </TanstackQueryProvider>
+          </TanstackQueryProvider>
         </NextAuthProvider>
       </body>
     </html>

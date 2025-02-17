@@ -2,6 +2,7 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Loader2 } from "lucide-react";
 import { getSession, signIn } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
@@ -35,7 +36,7 @@ function Login() {
         toast.success("Signin successful");
         if (session?.user?.is_vendor === true) {
           // INFO: These are sample routes. You can edit them however you see fit
-          router?.push("/vendors/dashboard");
+          router?.push("/dashboard");
         }
 
         if (session?.user?.is_customer === true) {
@@ -62,14 +63,11 @@ function Login() {
   return (
     <main className="p-5 h-screen flex flex-col">
       <div>
-        <Link href="/" className="flex items-end">
-          <span className="font-bold text-3xl leading-none text-black">
-            Duka
-          </span>
-          <Image src="/logo.svg" alt="logo" width={30} height={30} />
+        <Link href="/" className="flex items-center gap-1">
+          <Image src="/logo2.png" alt="logo" width={100} height={80} />
         </Link>
       </div>
-      <div className="flex-grow py-5 place-content-center w-[460px] mx-auto">
+      <div className="flex-grow py-5 place-content-center md:w-[460px] mx-auto">
         <div className="border rounded-lg p-8">
           <h1 className="text-4xl text-center mb-8">Log in to Duka</h1>
           <div className="flex justify-center">
@@ -109,36 +107,24 @@ function Login() {
             <span className="border-b mx-2 mt-1 w-full"></span>
             <span>or</span>
             <span className="border-b mx-2 mt-1 w-full"></span>
-          </span>
-          <form onSubmit={handleLogin} className="space-y-8 px-2">
-            <div className="flex flex-col gap-2">
-              <Label htmlFor="email">Email</Label>
-              <Input
-                id="email"
-                name="email"
-                type="email"
-                onChange={handleChange}
-              />
+        </span>
+            <form onSubmit={handleLogin} className="space-y-8 px-2">
+                <div className="flex flex-col gap-2">
+                    <Label htmlFor='email'>Email</Label>
+                    <Input id='email' name='email' type='email' onChange={handleChange} />
+                </div>
+                <div className="flex flex-col gap-2">
+                    <Label htmlFor='password'>Password</Label>
+                    <Input id='password' name='password' type='password' onChange={handleChange} />
+                </div>
+                <div className="flex justify-center w-full">
+                <Button disabled={loading} >{loading ? <Loader2 className="animate-spin" /> : "Login"}</Button>
+                </div>
+            </form>
             </div>
-            <div className="flex flex-col gap-2">
-              <Label htmlFor="password">Password</Label>
-              <Input
-                id="password"
-                name="password"
-                type="password"
-                onChange={handleChange}
-              />
-            </div>
-            <div className="flex justify-center w-full">
-              <Button disabled={loading}>
-                {loading ? "Loading..." : "Login"}
-              </Button>
-            </div>
-          </form>
         </div>
-      </div>
-    </main>
-  );
+        </main>
+  )
 }
 
 export default Login;
