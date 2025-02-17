@@ -1,6 +1,6 @@
 'use client';
 
-import { getCategories } from "@/tools/api";
+import { getCategories, getSingleProduct } from "@/tools/api";
 import { ProductForm } from "./components/ProductForm";
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from "next/navigation";
@@ -12,10 +12,11 @@ const ProductPage = () => {
   const axiosAuth = useAxiosAuth()
   const {
     data: product,
-    isPending: productFetchPending
+    isLoading: productFetchPending,
   } = useQuery({
-    queryKey: ["getSingleProduct"],
+    queryKey: ["getSingleProduct",productId],
     queryFn: () => getSingleProduct(productId, axiosAuth),
+    enabled: productId !== 'new',
   });
 
   const {
@@ -24,7 +25,6 @@ const ProductPage = () => {
     queryKey: ["getCategories"],
     queryFn: () => getCategories(),
   });
-  console.log(product)
 
   if(productFetchPending){
     return <Loader2 className="animate-spin" />;
@@ -33,7 +33,12 @@ const ProductPage = () => {
   return (
     <div className="flex-col">
       <div className="flex-1 space-y-4 p-6">
+        {productId === 'new' 
+        ? 
+        <ProductForm categories={categories} />
+        :
         <ProductForm categories={categories} initialData={product} />
+      }
       </div>
     </div>
   );

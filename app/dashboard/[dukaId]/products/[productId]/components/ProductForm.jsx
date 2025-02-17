@@ -2,8 +2,8 @@
 
 import { Button } from "@/components/ui/button";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Trash } from "lucide-react";
-import { useState } from "react";
+import { Loader2, Trash } from "lucide-react";
+import { useEffect, useState } from "react";
 import { z } from "zod";
 
 import {
@@ -22,7 +22,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Checkbox } from "@/components/ui/checkbox";
 import toast from "react-hot-toast";
 import { AlertModal } from "@/components/modals/alert-modal";
-import { useCreateProduct } from "@/lib/react-query/queriesAndMutations";
+import { useCreateProduct, useDeleteProduct, useUpdateProduct } from "@/lib/react-query/queriesAndMutations";
 import useAxiosAuth from "@/hooks/general/useAxiosAuth";
 import { Heading } from "../../../components/Heading";
 import { useForm } from "react-hook-form";
@@ -45,25 +45,44 @@ export const ProductForm = ({
 }) => {
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [file, setFile] = useState('');
-    const [filePreview, setFilePreview] = useState(null);
-  const params = useParams();
+  const [files, setFiles] = useState([]);
+  const [initialImages, setInitialImages] = useState([]);
+  const [imageURLs, setImageURLs] = useState([]);
+  const [deletedImages, setDeletedImages] = useState(new Set());
+  const {dukaId, productId} = useParams();
   const router = useRouter();
-  const { mutateAsync:createNewProduct, isPending, isSuccess, isError } = useCreateProduct();
+  const { mutateAsync:createNewProduct, isSuccess, isError } = useCreateProduct();
+  const { mutateAsync:updateProduct, isSuccess:updateSuccess, isError:updateError } = useUpdateProduct();
+  const { mutateAsync:deleteProduct, isSuccess:deleteSuccess, isError:deleteError } = useDeleteProduct();
   const handleClose = () => setOpen(false);
   const axiosAuth = useAxiosAuth()
 
-  function handleAvatarChange(e){
-    setFile(e.target.files[0])
-    setFilePreview(URL.createObjectURL(e.target.files[0]))
+  function handleImageChange(e){
+    const selectedFiles = e.target.files;
+    setFiles(Array.from(selectedFiles));
   }
+  useEffect(() => {
+    if (files.length < 1) return;
+    const newImageUrls = [];
+    files.forEach((image) => newImageUrls.push(URL.createObjectURL(image)));
+    setImageURLs(newImageUrls);
+  }, [files]);
+  
+  const handleImageDelete = (image) => {
+    setDeletedImages((prev) => {
+      const newDeletedImages = new Set(prev);
+      if (newDeletedImages.has(image)) {
+        newDeletedImages.delete(image); 
+      } else {
+        newDeletedImages.add(image);
+      }
+      return newDeletedImages;
+    });
+  };
 
   const form = useForm({
     resolver: zodResolver(formSchema),
-    defaultValues: initialData?.length > 0 ? {
-      ...initialData,
-      price: parseFloat(String(initialData?.price)),
-    } : {
+    defaultValues: {
       name: "",
       description:"",
       uploaded_images: [],
@@ -76,11 +95,23 @@ export const ProductForm = ({
       sizes:"",
     },
   });
+  useEffect(() => {
+    if (initialData) {
+      setInitialImages(initialData?.images)
+      form.reset({
+        ...initialData,
+        price: parseFloat(String(initialData.price)), 
+        features: initialData.features ? initialData.features.join(', ') : '',
+        colors: initialData.colors ? initialData.colors.join(', ') : '',
+        sizes: initialData.sizes ? initialData.sizes.join(', ') : '',
+      });
+    }
+  }, [initialData, form]);
 
-  const title = initialData?.length > 0 ? "Edit Product" : "Create Product";
-  const description = initialData?.length > 0 ? "Edit a Product" : "Create a Product";
-  const action = initialData?.length > 0 ? "Save changes" : "Create";
-  const toastMessage = initialData?.length > 0 ? "Product updated" : "Product created";
+  const title = initialData ? "Edit Product" : "Create Product";
+  const description = initialData ? "Edit a Product" : "Create a Product";
+  const action = initialData ? "Save changes" : "Create";
+  const toastMessage = initialData ? "Product updated" : "Product created";
 
   const parseInputToArray = (input) => {
     if(!input) return [];
@@ -94,25 +125,51 @@ export const ProductForm = ({
     const featuresArray = parseInputToArray(values.features);
     const colorsArray = parseInputToArray(values.colors);
     const sizesArray = parseInputToArray(values.sizes);
-    const newValues ={...values, features:featuresArray, colors:colorsArray, sizes:sizesArray, uploaded_images:file, shop:"comfortt"} 
+    const formData = new FormData();
+  formData.append('shop', "comfortt");
+  formData.append('name', values.name);
+  formData.append('description', values.description);
+  formData.append('price', values.price);
+  formData.append('stock', values.stock);
+  formData.append('discount', values.discount);
+  formData.append('is_active', values.is_active);
+  formData.append('features', JSON.stringify(featuresArray));
+  formData.append('colors', JSON.stringify(colorsArray));
+  formData.append('sizes', JSON.stringify(sizesArray));
+  files.forEach((file) => {
+    formData.append('uploaded_images', file);
+  });
 
     try {
       setLoading(true);
-      if(initialData.length > 0){
-        axios.patch(`/api/${params.storeId}/products/${params.productId}`, values)
-        .then(()=>{
-          router.refresh();
-          router.push(`/${params.storeId}/products`)
-          toast.success(toastMessage, { id: "success" });
-        })
-      }else{
+      if(initialData){
+        // const updatedImages = initialImages.filter((image) => !deletedImages.has(image));
+        // updatedImages.forEach((image) => {
+        //   formData.append('uploaded_images', image.image);
+        // });
         const data = {
-          values: newValues,
+          slug:productId,
+          values: formData,
           axiosAuth: axiosAuth
       }
-        await createNewProduct(data);
-        if(isSuccess){
-            toast.success('Product created successfully')
+        await updateProduct(data);
+        if(updateSuccess){
+            toast.success(toastMessage, { id: "updatesuccess" })
+            router.refresh()
+        }
+        if(updateError){
+            toast.error('Failed to update product. Please try again.')
+        }
+        
+      }else{
+        const data = {
+          values: formData,
+          axiosAuth: axiosAuth
+      }
+        const result = await createNewProduct(data);
+        if(result.success){
+            toast.success(toastMessage, { id: "createsuccess" })
+            router.replace(`/dashboard/${dukaId}/products`)
         }
         if(isError){
             toast.error('Failed to create product. Please try again.')
@@ -125,21 +182,29 @@ export const ProductForm = ({
     }
   }
   const onDelete = async () => {
+    const data = {
+      slug:productId,
+      axiosAuth: axiosAuth
+    }
     try {
       setLoading(true);
-      await axios.delete(`/api/${params.storeId}/products/${params.productId}`);
-      router.refresh();
-      router.push(`/${params.storeId}/products`);
-      toast.success("Product deleted.", { id: "success" });
+      const result = await deleteProduct(data);
+      if(result.success){
+          toast.success('Product deleted', { id: "deletesuccess" })
+      }
+      if(deleteError){
+          toast.error('Failed to delete product. Please try again.')
+      }
     } catch (error) {
       toast.error("Something went wrong.", {
-        id: "error",
+        id: "errordeleting",
       });
     } finally {
       setLoading(false);
       setOpen(false);
     }
   };
+  console.log(initialImages)
   return (
     <>
       <AlertModal
@@ -150,7 +215,7 @@ export const ProductForm = ({
       />
       <div className="flex items-center justify-between">
         <Heading title={title} description={description} />
-        {initialData?.length > 0 && (
+        {initialData && (
           <Button
             disabled={loading}
             variant="destructive"
@@ -165,9 +230,23 @@ export const ProductForm = ({
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 ">
         <div className='flex items-center'>
-                        <input style={{ display: "none" }} type="file" id="file" onChange={handleAvatarChange}/>
+                        <input style={{ display: "none" }} type="file" multiple id="file" onChange={handleImageChange}/>
                         <label htmlFor="file" className="cursor-pointer">Choose photo</label>
-                        {filePreview !== null && <img src={filePreview} alt="Preview" className='size-10 ml-2 rounded-full object-cover' /> }
+                        {imageURLs.map((imageSrc, index) => (
+                          <img key={index} src={imageSrc} alt="Preview" className='size-10 ml-2 rounded object-cover' />
+                        ))}
+                        {initialImages ?
+                        initialImages?.map((image)=>(
+                          <div key={image.id}>
+                            <img src={image.image} alt="Preview" className='size-16 ml-2 rounded object-cover' />
+                            {/* <button type="button" onClick={() => handleImageDelete(image)}>
+                              {deletedImages.has(image) ? 'Undo Delete' : 'Delete'}
+                            </button>  */}
+                          </div>
+                        ))
+                        :
+                        null
+                         }
                     </div>
           <div className="grid gap-8 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
             <FormField
@@ -327,7 +406,7 @@ export const ProductForm = ({
            
           </div>
           <Button disabled={loading} type="submit">
-            {action}
+            {loading ? <Loader2 className="animate-spin" /> : `${action}` }
           </Button>
         </form>
       </Form>

@@ -31,7 +31,7 @@ import { Textarea } from "@/components/ui/textarea";
 import useAxiosAuth from "@/hooks/general/useAxiosAuth";
 import toast from "react-hot-toast";
 import { Loader2 } from "lucide-react";
-import { Heading } from "../../components/Heading";
+import { Heading } from "@/app/dashboard/[dukaId]/components/Heading";
 
 const formSchema = z.object({
   name: z.string().min(2, {

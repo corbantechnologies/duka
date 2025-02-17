@@ -71,12 +71,35 @@ export const getCategories = async (axios) => {
 
 export const createProduct = async (values, axiosAuth) => {
   try {
-    const {data} = await urlMultipartActions.post(`/api/products/`, values, axiosAuth);
-    return data;
-    
+    const response = await urlMultipartActions.post(`/api/products/`, values, axiosAuth);
+    if (response.status === 201) {
+      return { success: true };
+    }
   } catch (error) {
     console.log('Error creating product', error)
     return error;
+  }
+};
+
+export const updateProduct = async (slug, values, axiosAuth) => {
+  try {
+    const {data} = await urlMultipartActions.patch(`/api/products/${slug}/`, values, axiosAuth);
+    return data;
+  } catch (error) {
+    console.log('Error updating product', error)
+    throw error
+  }
+};
+
+export const deleteProduct = async (slug, axiosAuth) => {
+  try {
+    const response = await urlMultipartActions.delete(`/api/products/${slug}/`, axiosAuth);
+    if (response.status === 204) {
+      return { success: true };
+    }
+  } catch (error) {
+    console.log('Error deleting product', error)
+    throw error
   }
 };
 
@@ -92,10 +115,10 @@ export const getProducts = async (axiosAuth) => {
 
 export const getSingleProduct = async (slug, axiosAuth) => {
   try {
-    const {data} = await urlMultipartActions.get(`/api/products/${slug}/`, axiosAuth);
-    return data.results;
+    const { data } = await urlMultipartActions.get(`/api/products/${slug}/`, axiosAuth);
+    return data;
   } catch (error) {
-    console.log('Error fetching categories', error)
-    return error;
+    console.error('Error fetching single product:', error);
+    throw error;
   }
 };

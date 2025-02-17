@@ -20,7 +20,11 @@ export default function Layout({children}) {
     });
 
     useEffect(() => {
-      if (status !=='loading' && status === 'unauthenticated') {
+      if (status === 'loading') {
+        return;
+      }
+      
+      if (status === 'unauthenticated') {
         router.replace('/auth/login');
       }
     }, [status, router]);

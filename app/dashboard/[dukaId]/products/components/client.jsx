@@ -1,13 +1,14 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { useRouter } from "next/navigation";
+import { useParams } from "next/navigation";
 import { columns } from "./column";
 import { DataTable } from "@/components/ui/data-table";
 import { Heading } from "../../components/Heading";
+import Link from "next/link";
 
 export const ProductClient = ({ data }) => {
-  const router = useRouter();
+  const {dukaId} = useParams()
   return (
     <>
       <div className="flex items-center justify-between">
@@ -15,8 +16,8 @@ export const ProductClient = ({ data }) => {
           title={`Products (${data?.length})`}
           description="Manage products for your store"
         />
-        <Button onClick={() => router.push(`/dashboard/products/new`)}>
-          + Add New
+        <Button asChild>
+          <Link href={`/dashboard/${dukaId}/products/new`}>+ Add New</Link>
         </Button>
       </div>
       <hr />
