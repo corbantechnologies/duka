@@ -13,10 +13,9 @@ import Image from "next/image";
 
 function Navbar({ shops }) {
   const {
-    isLoading: isLoadingAccount,
     data: account,
-    refetch: refetchAccount,
   } = useFetchUser();
+  console.log(account)
   const getInitials = () => {
     if (!account) return "";
     const firstInitial = account.first_name ? account.first_name.charAt(0) : "";
