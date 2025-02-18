@@ -39,9 +39,9 @@ export const createStore = async (values, axiosAuth) => {
   }
 }
 
-export const getShops = async (axios) => {
+export const getSellerShops = async (axiosAuth) => {
   try {
-    const {data} = await urlMultipartActions.get("/api/shops/list", axios);
+    const {data} = await urlMultipartActions.get("/api/shops/", axiosAuth);
     return data.results;
   } catch (error) {
     console.log('Error fetching shops', error)

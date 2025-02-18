@@ -5,7 +5,7 @@ import { useSession } from "next-auth/react";
 import { useEffect } from "react";
 import { Loader2 } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { getShops } from "@/tools/api";
+import { getSellerShops } from "@/tools/api";
 import Navbar from './components/Navbar';
 import Sidebar from './components/sidebar';
 export default function SetupLayout({children}) {
@@ -21,8 +21,9 @@ export default function SetupLayout({children}) {
     const {
       data: shops,
     } = useQuery({
-      queryKey: ["getShops"],
-      queryFn: () => getShops(),
+      queryKey: ["getSellerShops"],
+      queryFn: () => getSellerShops(axiosAuth),
+      enabled: status === 'authenticated'
     });
 
     if (status === 'loading' || status === 'unauthenticated') {
