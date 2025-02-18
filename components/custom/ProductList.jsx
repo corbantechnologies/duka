@@ -44,7 +44,7 @@ function ProductList() {
   return (
     <div className={`flex gap-3 lg:gap-5 mt-3 w-full no-scrollbar snap-x overflow-auto`}>
         {recents.map((recent)=>(
-          <div key={recent.img} className="relative snap-start flex-shrink-0 max-w-[150px] lg:max-w-[200px]">
+          <div key={recent.img} className="relative snap-start flex-shrink-0 max-w-[150px] lg:max-w-[180px]">
             <Link href='/listing/0912409563' key={recent.img} className='relative'>
               <div>
                 <img className="rounded-lg object-cover mb-1" alt="images of recent views" src={recent.img} />
