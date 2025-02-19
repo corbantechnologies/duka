@@ -101,9 +101,9 @@ export const ProductForm = ({
       form.reset({
         ...initialData,
         price: parseFloat(String(initialData.price)), 
-        features: initialData.features ? initialData.features.join(', ') : '',
-        colors: initialData.colors ? initialData.colors.join(', ') : '',
-        sizes: initialData.sizes ? initialData.sizes.join(', ') : '',
+        features: initialData.features ? initialData?.features?.join(', ') : '',
+        colors: initialData.colors ? initialData?.colors?.join(', ') : '',
+        sizes: initialData.sizes ? initialData?.sizes?.join(', ') : '',
       });
     }
   }, [initialData, form]);
@@ -204,7 +204,6 @@ export const ProductForm = ({
       setOpen(false);
     }
   };
-  console.log(initialImages)
   return (
     <>
       <AlertModal

@@ -30,8 +30,9 @@ import { useQuery } from "@tanstack/react-query";
 import { Textarea } from "@/components/ui/textarea";
 import useAxiosAuth from "@/hooks/general/useAxiosAuth";
 import toast from "react-hot-toast";
-import { Loader2 } from "lucide-react";
+import { Loader2, Router } from "lucide-react";
 import { Heading } from "@/app/dashboard/[dukaId]/components/Heading";
+import { useRouter } from "next/navigation";
 
 const formSchema = z.object({
   name: z.string().min(2, {
@@ -48,6 +49,7 @@ const formSchema = z.object({
 
 export default function CreateStore() {
   const { mutateAsync:createNewStore, isPending, isSuccess, isError } = useCreateStore();
+  const router = useRouter()
   const {
     data: categories,
   } = useQuery({
@@ -77,6 +79,7 @@ export default function CreateStore() {
     await createNewStore(data);
     if(isSuccess){
         toast.success('Shop created successfully')
+        router.replace('/dashboard')
     }
     if(isError){
         toast.error('Failed to create shop. Please try again.')
@@ -151,41 +154,67 @@ export default function CreateStore() {
             </FormItem>
           )}
         />
-        <FormField
+         <FormField
           control={form.control}
           name="country"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Country</FormLabel>
-              <FormControl>
-                <Input placeholder="Your country" {...field} />
-              </FormControl>
+              <Select onValueChange={field.onChange} defaultValue={field.value}>
+                <FormControl>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select your country" />
+                  </SelectTrigger>
+                </FormControl>
+                <SelectContent>
+                  <SelectItem value="Kenya">Kenya</SelectItem>
+                  <SelectItem value="Uganda">Uganda</SelectItem>
+                  <SelectItem value="Nigeria">Nigeria</SelectItem>
+                </SelectContent>
+              </Select>
               <FormMessage />
             </FormItem>
           )}
         />
-        <FormField
+         <FormField
           control={form.control}
           name="currency"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Currency</FormLabel>
-              <FormControl>
-                <Input placeholder="Your currency" {...field} />
-              </FormControl>
+              <Select onValueChange={field.onChange} defaultValue={field.value}>
+                <FormControl>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select your currency" />
+                  </SelectTrigger>
+                </FormControl>
+                <SelectContent>
+                  <SelectItem value="KSH">KSH</SelectItem>
+                  <SelectItem value="USD">USD</SelectItem>
+                  <SelectItem value="NGR">NGR</SelectItem>
+                </SelectContent>
+              </Select>
               <FormMessage />
             </FormItem>
           )}
         />
-        <FormField
+         <FormField
           control={form.control}
           name="language"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Language</FormLabel>
-              <FormControl>
-                <Input placeholder="Your language" {...field} />
-              </FormControl>
+              <Select onValueChange={field.onChange} defaultValue={field.value}>
+                <FormControl>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select your language" />
+                  </SelectTrigger>
+                </FormControl>
+                <SelectContent>
+                  <SelectItem value="English">English</SelectItem>
+                  <SelectItem value="Kiswahili">Kiswahili</SelectItem>
+                </SelectContent>
+              </Select>
               <FormMessage />
             </FormItem>
           )}

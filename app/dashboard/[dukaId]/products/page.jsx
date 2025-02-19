@@ -3,43 +3,39 @@
 import {format} from 'date-fns';
 import { ProductClient } from "./components/client";
 import { formatter } from '@/lib/utils';
-import { getCategories, getProducts } from '@/tools/api';
+import { getCategories, getSingleShop } from '@/tools/api';
 import { useQuery } from '@tanstack/react-query';
 import useAxiosAuth from '@/hooks/general/useAxiosAuth';
 import { Loader2 } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { useParams, useRouter } from 'next/navigation';
+import useActiveStore from '@/hooks/use-active-store';
 
 const ProductsPage = () => {
 
   const axiosAuth = useAxiosAuth()
   const router = useRouter()
   const {dukaId} = useParams()
-
+  const storeId = useActiveStore()
+  const {
+    data: shop,
+    isPending,
+  } = useQuery({
+    queryKey: ["getSingleShop", storeId.storeId],
+    queryFn: () => getSingleShop(storeId.storeId,axiosAuth),
+    enabled: !!storeId.storeId,
+  });
   const {
     data: categories,
   } = useQuery({
     queryKey: ["getCategories"],
     queryFn: () => getCategories(),
   });
-  const {
-    data: products,
-    isPending,
-    isError
-  } = useQuery({
-    queryKey: ["getProducts"],
-    queryFn: () => getProducts(axiosAuth),
-  });
 
   if(isPending){
     return <Loader2 className='animate-spin'/>
   }
-  if(isError){
-    toast.error('An error occurred while fetching products. Please try again later.')
-    router.replace(`/dashboard/${dukaId}`)
-  }
-  
-  const formattedProducts = products?.map((item) => ({
+  const formattedProducts = shop?.products?.map((item) => ({
     id: item.id,
     name: item.name,
     isActive: item.is_active,
