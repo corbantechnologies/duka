@@ -40,7 +40,6 @@ function ProductSuggestions() {
               </Link>
             </div>
           </div>
-
           <ProductList />
         </div>
       ))}

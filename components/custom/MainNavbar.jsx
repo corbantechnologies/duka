@@ -16,8 +16,10 @@ import {
 import { Input } from "../ui/input";
 import useCart from "@/hooks/use-cart";
 import useWishlist from "@/hooks/use-wishlist";
+import { useSession } from "next-auth/react";
 
 function MainNavbar() {
+  const{status} = useSession();
   const cart = useCart();
   const wishlist = useWishlist();
   return (
@@ -75,10 +77,9 @@ function MainNavbar() {
           </Link>
         </li>
         <li>
-          <button className="bg-primary text-white py-2 px-5 rounded-md">
-            {" "}
+          {status !== 'authenticated' && <button className="bg-primary text-white py-2 px-5 rounded-md">
             <Link href="/auth/login">Sign in</Link>{" "}
-          </button>
+          </button>}
         </li>
       </ul>
       <Menu className="md:hidden text-black" />

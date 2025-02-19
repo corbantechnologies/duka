@@ -11,21 +11,21 @@ import {
 
 import { Button } from "@/components/ui/button";
 import { Copy, Edit, MoreHorizontal, Trash } from "lucide-react";
-import { useParams, useRouter } from "next/navigation";
+import { useParams } from "next/navigation";
 import { useState } from "react";
-import axios from "axios";
 import { AlertModal } from "@/components/modals/alert-modal";
 import toast from "react-hot-toast";
 import Link from "next/link";
 import { useDeleteProduct } from "@/lib/react-query/queriesAndMutations";
 import useAxiosAuth from "@/hooks/general/useAxiosAuth";
+import { useQueryClient } from "@tanstack/react-query";
 
 export const CellAction = ({ data }) => {
-    const router = useRouter();
     const params = useParams();
     const [loading, setLoading] = useState(false);
     const [open, setOpen] = useState(false);
     const axiosAuth = useAxiosAuth()
+    const queryClient = useQueryClient()
     const { mutateAsync:deleteProduct, isError:deleteError } = useDeleteProduct();
     const onCopy = (id) => {
         navigator.clipboard.writeText(id);
@@ -41,6 +41,7 @@ export const CellAction = ({ data }) => {
           const result = await deleteProduct(values);
           if(result.success){
               toast.success('Product deleted', { id: "deletesuccess" })
+              queryClient.invalidateQueries({ queryKey: ['getSingleShop'] })
           }
           if(deleteError){
               toast.error('Failed to delete product. Please try again.')

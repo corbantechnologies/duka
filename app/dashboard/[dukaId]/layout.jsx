@@ -8,10 +8,12 @@ import { useRouter } from "next/navigation";
 import { getSellerShops } from "@/tools/api";
 import Navbar from './components/Navbar';
 import Sidebar from './components/sidebar';
+import useAxiosAuth from '@/hooks/general/useAxiosAuth';
 export default function SetupLayout({children}) {
     const query = new QueryClient()
     const{status} = useSession();
     const router = useRouter();
+    const axiosAuth = useAxiosAuth()
     useEffect(() => {
       if (status === 'unauthenticated') {
         router.replace('/auth/login');
@@ -25,7 +27,6 @@ export default function SetupLayout({children}) {
       queryFn: () => getSellerShops(axiosAuth),
       enabled: status === 'authenticated'
     });
-
     if (status === 'loading' || status === 'unauthenticated') {
       return (
         <div className="">

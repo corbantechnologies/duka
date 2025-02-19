@@ -12,10 +12,8 @@ export default function Layout({children}) {
     const{status} = useSession();
     const router = useRouter();
     const axiosAuth = useAxiosAuth()
-
     const {
       data: shops,
-      isSuccess,
       isPending
     } = useQuery({
       queryKey: ["getSellerShops"],
@@ -24,55 +22,28 @@ export default function Layout({children}) {
     });
     const {
         data: account,
-        isPending:fetchingUser,
-        iseSuccess:userFetchSuccess
+        isPending:isLoadingUser
       } = useFetchUser();
 
-    // useEffect(() => {
-    //   if (status === 'loading') {
-    //     return;
-    //   }
-    //   if (status === 'unauthenticated') {
-    //     router.replace('/auth/login');
-    //   }
-    // }, [status, router]);
-
-    // useEffect(() => {
-    //   if (!fetchingUser && userFetchSuccess) {
-    //     if(account.is_customer){
-    //       router.replace(`/dashboard/user/${account.id}`);
-    //     }
-    //   }
-    // }, [fetchingUser, userFetchSuccess, account, router]);
-
-    // useEffect(() => {
-    //   if (isSuccess && shops && shops.length > 0) {
-    //     router.replace(`/dashboard/${shops[0].slug}`);
-    //   }
-    // }, [isSuccess, shops, router]);
+    useEffect(() => {
+      if (status !== 'loading' && status === 'unauthenticated') {
+        router.replace('/auth/login');
+      }
+    }, [status, router]);
     
-useEffect(() => {
-  if (status === 'loading' || fetchingUser) {
-    return;
-  }
+    useEffect(() => {
+      if (shops?.length > 0) {
+        router.replace(`/dashboard/${shops[0].slug}`);
+      }
+    }, [shops, router]);
 
-  if (status === 'unauthenticated') {
-    router.replace('/auth/login');
-    return; 
-  }
+    useEffect(() => {
+        if(!isPending && !shops && account && account?.is_customer){
+          router.replace(`/dashboard/user/${account.id}`);
+        }
+    }, [account, router]);
 
-  if (userFetchSuccess && account) {
-    if (account.is_customer) {
-      router.replace(`/dashboard/user/${account.id}`);
-      return; 
-    } else if (isSuccess && shops && shops.length > 0) {
-      router.replace(`/dashboard/${shops[0].slug}`);
-      return;
-    }
-  }
-}, [status, fetchingUser, userFetchSuccess, account, isSuccess, shops, router]);
-
-    if (status === 'loading' || isPending || status === 'unauthenticated') {
+    if (status === 'loading' && isPending && isLoadingUser) {
       return (
         <div className="">
           <Loader2 className="animate-spin" />

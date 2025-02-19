@@ -34,15 +34,7 @@ function Login() {
       } else {
         setLoading(false);
         toast.success("Signin successful");
-        if (session?.user?.is_vendor === true) {
-          // INFO: These are sample routes. You can edit them however you see fit
-          router?.push("/dashboard");
-        }
-
-        if (session?.user?.is_customer === true) {
-          // INFO: These are sample routes. You can edit them however you see fit
-          router?.push("/customer/dashboard");
-        }
+        router?.push("/dashboard");
       }
     } catch (error) {
       setLoading(false);
@@ -70,7 +62,7 @@ function Login() {
       <div className="flex-grow py-5 place-content-center md:w-[460px] mx-auto">
         <div className="border rounded-lg p-8">
           <h1 className="text-4xl text-center mb-8">Log in to Duka</h1>
-          <div className="flex justify-center">
+          {/* <div className="flex justify-center">
             <button
               className="flex items-center gap-2 border rounded-full py-3 px-8"
               onClick={handleLoginWithGoogle}
@@ -107,7 +99,7 @@ function Login() {
             <span className="border-b mx-2 mt-1 w-full"></span>
             <span>or</span>
             <span className="border-b mx-2 mt-1 w-full"></span>
-        </span>
+        </span> */}
             <form onSubmit={handleLogin} className="space-y-8 px-2">
                 <div className="flex flex-col gap-2">
                     <Label htmlFor='email'>Email</Label>
