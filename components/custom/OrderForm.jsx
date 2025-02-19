@@ -23,7 +23,7 @@ import Link from "next/link";
 function OrderForm() {
   const stars = Array(5).fill("⭐");
   return (
-    <div className="space-y-5">
+    <div className="space-y-5 px-1">
       <div className="space-y-1">
         <p className="text-xl">My awesome product name</p>
         <p className="flex items-center gap-2">
@@ -97,7 +97,7 @@ function OrderForm() {
           </Select>
         </div>
       </div>
-      <button className='w-full py-2 bg-primary text-white text-[17px]'>Add to Cart</button>
+      <button className='w-full rounded-md py-2 bg-primary hover:bg-primary/90 text-white text-[17px]'>Add to Cart</button>
       <div>
       <Accordion type="single" collapsible className="w-full">
       <AccordionItem value="item-1">

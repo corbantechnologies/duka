@@ -30,7 +30,7 @@ function Categories() {
         <h1 className="text-2xl lg:text-3xl font-semibold">Shop our most popular categories</h1>
         <div className="grid grid-cols-2 sm:flex gap-5 mt-3 w-full snap-x overflow-auto no-scrollbar">
         {recents.map((recent)=>(
-            <div key={recent.img} className="snap-start flex-shrink-0 lg:max-w-[200px]">
+            <div key={recent.img} className="snap-start flex-shrink-0 sm:max-w-[200px]">
               <div>
                 <img className="rounded-lg object-cover mb-1" alt="images of recent views" src={recent.img} />
                 <p>{recent.title}</p>

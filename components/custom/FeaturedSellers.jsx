@@ -15,7 +15,7 @@ function FeaturedSellers() {
       </h1>
       {Array.from({ length: 4 }, (_, index) => (
         <div key={index} className="mb-10 space-y-4">
-          <div className="flex justify-between items-center ">
+          <div className="flex flex-col md:flex-row gap-3 justify-between md:items-center ">
             <div className="flex items-center gap-2">
               <Image
                 src={sellers[index]}
@@ -32,7 +32,7 @@ function FeaturedSellers() {
               </div>
             </div>
             <div className="flex items-center gap-3 sm:gap-5">
-              <button className="border-2 border-gray-900 transition-all duration-300 hover:bg-primary hover:text-white hover:border-transparent py-1 px-3 gap-2 rounded-full flex items-center">
+              <button className="border-2 text-sm md:text-base border-gray-900 transition-all duration-300 hover:bg-primary hover:text-white hover:border-transparent py-1 px-3 gap-2 rounded-full flex items-center">
                 <Heart size={18} /> Follow
               </button>
               <Link href="#" className="underline text-sm">
