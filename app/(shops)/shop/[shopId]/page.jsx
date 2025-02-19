@@ -4,6 +4,7 @@ import { Heart, Mail, MapPin, ShoppingCart } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 const store = {
     name: "Comfortt",
@@ -55,6 +56,7 @@ const recents = [
   const stars = Array(5).fill("⭐");
 function Shop() {
     const router = useRouter()
+    const [collection, setCollection] = useState('All')
     const handleCart = (e) => {
         alert("Cart clicked");
         e.stopPropagation();
@@ -86,18 +88,22 @@ function Shop() {
           </div>
         </div>
         </div>
-        <div className="my-8 px-4 md:px-0">
-                <h2 className="font-semibold mb-3 text-lg lg:text-xl">Categories</h2>
-            <ul className="flex flex-wrap gap-5">
+        <section className='px-4 mt-8 md:px-0'>
+            <h2 className="font-semibold mb-3 text-lg lg:text-xl">Products</h2>
+            <ul className="flex flex-wrap mb-3 gap-3">
+            <li className={`${collection === 'All' ? 'bg-primary text-white' : 'bg-transparent'} transition-colors duration-300 hover:bg-primary hover:text-white text-sm rounded-full px-3 py-1`}>
+                        <button onClick={()=>setCollection('All')} type='button'>
+                        All
+                        </button>
+                    </li>
                 {storeCategories.map((category)=>(
-                    <li key={category} className="p-6 md:p-8 rounded-lg bg-slate-100 ">
+                    <li key={category} className={`${collection === category ? 'bg-primary text-white' : 'bg-transparent'} transition-colors duration-300 hover:bg-primary hover:text-white text-sm rounded-full px-3 py-1`}>
+                        <button onClick={()=>setCollection(category)} type='button'>
                         {category}
+                        </button>
                     </li>
                 ))}
             </ul>
-        </div>
-        <section className='px-4 md:px-0'>
-            <h2 className="font-semibold mb-3 text-lg lg:text-xl">Products</h2>
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 lg:grid-cols-6 gap-5">
             {recents.map((recent)=>(
                 <div key={recent.img} className="relative snap-start">
@@ -127,7 +133,7 @@ function Shop() {
             <button className="bg-slate-100 transition-colors duration-300 hover:bg-primary hover:text-white px-3 py-1 rounded-md">View more products</button>
             </div>
         </section>
-        <section className="my-8">
+        <section className="my-8 px-4 md:px-0">
         <h2 className="font-semibold mb-3 text-lg lg:text-xl">Shop Reviews</h2>
         <ul className="space-y-3 md:max-w-screen-md">
               {Array.from({ length: 5 }, (_, index) => (
