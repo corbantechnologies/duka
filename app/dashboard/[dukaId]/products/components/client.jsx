@@ -17,7 +17,7 @@ export const ProductClient = ({ data }) => {
           description="Manage products for your store"
         />
         <Button asChild>
-          <Link href={`/dashboard/${dukaId}/products/new`}>+ Add New</Link>
+          <Link href={`/dashboard/${dukaId}/products/new`}>+ Add </Link>
         </Button>
       </div>
       <hr />
