@@ -37,7 +37,7 @@ function Navbar({ shops }) {
         <Image src="/logo2.png" alt="logo" width={100} height={80} />
       </div>
       <div className="flex items-center gap-5">
-        <div className="">
+        <div className="hidden md:block">
           <Select>
             <SelectTrigger className="w-full">
               <SelectValue placeholder={currentStore?.name} />
@@ -58,7 +58,7 @@ function Navbar({ shops }) {
               {getInitials()}
             </AvatarFallback>
           </Avatar>
-          <div>
+          <div className="hidden md:block">
             <span>
               {account?.first_name} {account?.last_name}
             </span>

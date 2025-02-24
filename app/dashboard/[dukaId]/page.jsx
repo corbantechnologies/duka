@@ -26,7 +26,7 @@ function Dashboard() {
   });
   return (
     <div className="flex flex-col">
-      <div className="flex-1 space-y-4 p-6 pt-4">
+      <div className="flex-1 space-y-4 md:p-6 md:pt-4">
         <Heading title="Dashboard" description="Overview of your store" />
         <hr />
         <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
