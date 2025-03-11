@@ -23,7 +23,7 @@ function MainNavbar() {
   const cart = useCart();
   const wishlist = useWishlist();
   return (
-    <nav className="flex border-b items-center justify-between gap-5 px-4 lg:px-8 bg-white z-50 fixed left-0 right-0 h-[70px]">
+    <nav className="flex items-center justify-between gap-5 px-4 lg:px-8 bg-white z-50 fixed left-0 right-0 h-[70px]">
       <div className="flex gap-5 items-center flex-1">
         <Link href="/">
           <Image src="/logo.jpg" alt="logo" width={100} height={80} />

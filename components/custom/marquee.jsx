@@ -50,7 +50,7 @@ const ReviewCard = ({
   return (
     <figure
       className={cn(
-        "relative w-64 cursor-pointer overflow-hidden rounded-xl ",
+        "relative w-28 md:w-64 cursor-pointer overflow-hidden rounded-xl ",
         
       )}
     >
@@ -61,7 +61,7 @@ const ReviewCard = ({
 
 export function MarqueeDemo() {
   return (
-    <div className="relative flex h-screen w-full flex-col items-center justify-center overflow-hidden">
+    <div className="relative flex h-fit md:h-screen w-full flex-col items-center justify-center overflow-hidden">
       <Marquee pauseOnHover className="[--duration:40s]">
         {firstRow.map((review) => (
           <ReviewCard key={review.username} {...review} />
@@ -72,7 +72,7 @@ export function MarqueeDemo() {
           <ReviewCard key={review.username} {...review} />
         ))}
       </Marquee>
-      <Marquee pauseOnHover className="[--duration:40s]">
+      <Marquee pauseOnHover className="hidden md:flex [--duration:40s]">
         {thirdRow.map((review) => (
           <ReviewCard key={review.username} {...review} />
         ))}

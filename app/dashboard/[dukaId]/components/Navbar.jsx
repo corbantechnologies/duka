@@ -19,7 +19,7 @@ function Navbar({ shops }) {
     data: account,
   } = useFetchUser();
   const {dukaId} = useParams()
-  const storeId = useActiveStore();
+  const activeStore = useActiveStore();
   const getInitials = () => {
     if (!account) return "";
     const firstInitial = account.first_name ? account.first_name.charAt(0) : "";
@@ -27,7 +27,7 @@ function Navbar({ shops }) {
     return (firstInitial + lastInitial).toUpperCase();
   };
   useEffect(()=>{
-      storeId.setStoreId(dukaId)
+    activeStore.setStoreId(dukaId)
   },[dukaId])
 
   const currentStore = shops?.find((shop) => shop.slug === dukaId);

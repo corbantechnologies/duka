@@ -2,7 +2,7 @@
 
 import Link from "next/link"
 
-function page() {
+function DashboardLandingPage() {
   return (
     <div className="bg-blue-50 border border-blue-200 rounded-lg p-6">
         <h1 className="text-2xl font-bold text-primary">Welcome to the Duka Seller Portal</h1>
@@ -13,4 +13,4 @@ function page() {
   )
 }
 
-export default page
+export default DashboardLandingPage

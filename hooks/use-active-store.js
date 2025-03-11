@@ -3,8 +3,10 @@ import { createJSONStorage, persist } from "zustand/middleware";
 
 const useActiveStore = create(
     persist((set) => ({
-        storeId: null, 
+        storeId: null,
+        storeName:null, 
         setStoreId: (id) => set({ storeId: id }),
+        setStoreName: (name) => set({ storeName: name }),
     }),
     {
         name: 'storeId-storage',

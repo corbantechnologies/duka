@@ -69,7 +69,7 @@ function AccountSettings() {
             </div>
             <label
               htmlFor="avatar"
-              className="bg-blue-50 mt-5 border border-primary cursor-pointer border-dashed rounded-xl w-full p-6 grid place-content-center"
+              className="bg-blue-50 mt-5 border border-primary cursor-pointer border-dashed rounded-xl w-full lg:w-1/2 p-6 grid place-content-center"
             >
               <div className="flex justify-center">
                 <img

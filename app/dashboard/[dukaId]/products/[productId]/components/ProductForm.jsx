@@ -15,8 +15,14 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
 import { Input } from "@/components/ui/input";
-import axios from "axios";
 import { useParams, useRouter } from "next/navigation";
 import { Textarea } from "@/components/ui/textarea";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -30,7 +36,38 @@ import {
 import useAxiosAuth from "@/hooks/general/useAxiosAuth";
 import { Heading } from "../../../components/Heading";
 import { useForm } from "react-hook-form";
-import { Label } from "@/components/ui/label";
+import useActiveStore from "@/hooks/use-active-store";
+
+const sizes = [
+  {
+    id: "",
+    label: "N/A",
+  },
+  {
+    id: "XS",
+    label: "XS",
+  },
+  {
+    id: "S",
+    label: "S",
+  },
+  {
+    id: "M",
+    label: "M",
+  },
+  {
+    id: "L",
+    label: "L",
+  },
+  {
+    id: "XL",
+    label: "XL",
+  },
+  {
+    id: "XXL",
+    label: "XXL",
+  },
+]
 
 const formSchema = z.object({
   name: z.string().min(2),
@@ -41,10 +78,13 @@ const formSchema = z.object({
   is_active: z.boolean().default(false).optional(),
   features: z.string().optional(),
   colors: z.string().optional(),
-  sizes: z.string().optional(),
+  sizes: z.array(z.string()).refine((value) => value.some((item) => item), {
+    message: "Select N/A if size is not applicable.",
+  }),
+  subcategories: z.string().min(2,{message: 'Select at least one sub-category for your product'})
 });
 
-export const ProductForm = ({ categories, initialData }) => {
+export const ProductForm = ({ initialData }) => {
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const [files, setFiles] = useState([]);
@@ -52,8 +92,8 @@ export const ProductForm = ({ categories, initialData }) => {
   const [imageURLs, setImageURLs] = useState([]);
   const [deletedImages, setDeletedImages] = useState(new Set());
   const { dukaId, productId } = useParams();
-  const [calculatedPrice, setCalculatedPrice] = useState('')
   const router = useRouter();
+  const activeStore = useActiveStore();
   const {
     mutateAsync: createNewProduct,
     isSuccess,
@@ -107,7 +147,8 @@ export const ProductForm = ({ categories, initialData }) => {
       is_active: false,
       features: "",
       colors: "",
-      sizes: "",
+      subcategories: "",
+      sizes: [""],
     },
   });
   useEffect(() => {
@@ -118,7 +159,8 @@ export const ProductForm = ({ categories, initialData }) => {
         price: parseFloat(String(initialData.price)),
         features: initialData.features ? initialData?.features?.join(", ") : "",
         colors: initialData.colors ? initialData?.colors?.join(", ") : "",
-        sizes: initialData.sizes ? initialData?.sizes?.join(", ") : "",
+        subcategories: initialData.subcategories ? initialData?.subcategories?.join(", ") : "",
+        // sizes: initialData.sizes ? initialData?.sizes?.join(", ") : "",
       });
     }
   }, [initialData, form]);
@@ -136,22 +178,13 @@ export const ProductForm = ({ categories, initialData }) => {
       .filter((item) => item);
   };
 
-  const calculateDiscountedPrice = (originalPrice, discountPercentage) => {
-    if (originalPrice < 0 || discountPercentage < 0 || discountPercentage > 100) {
-      return toast('Invalid input: originalPrice must be greater than 0 and discountPercentage must be between 0 and 100.');
-    }
-    const discountAmount = (originalPrice * discountPercentage) / 100;
-    const newPrice = originalPrice - discountAmount;
-  
-    return newPrice;
-  }
-
   async function onSubmit(values) {
     const featuresArray = parseInputToArray(values.features);
     const colorsArray = parseInputToArray(values.colors);
-    const sizesArray = parseInputToArray(values.sizes);
+    const subcategoriesArray = parseInputToArray(values.subcategories);
+    // const sizesArray = parseInputToArray(values.sizes);
     const formData = new FormData();
-    formData.append("shop", "comfortt");
+    formData.append("shop", activeStore.storeName);
     formData.append("name", values.name);
     formData.append("description", values.description);
     formData.append("price", values.price);
@@ -160,11 +193,13 @@ export const ProductForm = ({ categories, initialData }) => {
     formData.append("is_active", values.is_active);
     formData.append("features", JSON.stringify(featuresArray));
     formData.append("colors", JSON.stringify(colorsArray));
-    formData.append("sizes", JSON.stringify(sizesArray));
+    formData.append("subcategories", JSON.stringify(subcategoriesArray));
+    formData.append("sizes", JSON.stringify(values.sizes));
     files.forEach((file) => {
       formData.append("uploaded_images", file);
     });
-
+    console.log(formData)
+    // return;
     try {
       setLoading(true);
       if (initialData) {
@@ -180,7 +215,7 @@ export const ProductForm = ({ categories, initialData }) => {
         await updateProduct(data);
         if (updateSuccess) {
           toast.success(toastMessage, { id: "updatesuccess" });
-          router.refresh();
+          router.replace(`/dashboard/${dukaId}/products`);
         }
         if (updateError) {
           toast.error("Failed to update product. Please try again.");
@@ -215,6 +250,7 @@ export const ProductForm = ({ categories, initialData }) => {
       const result = await deleteProduct(data);
       if (result.success) {
         toast.success("Product deleted", { id: "deletesuccess" });
+        router.replace(`/dashboard/${dukaId}/products`);
       }
       if (deleteError) {
         toast.error("Failed to delete product. Please try again.");
@@ -254,12 +290,12 @@ export const ProductForm = ({ categories, initialData }) => {
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 ">
           <div>
           <p>Product image</p>
-          <div className="flex items-center">
+          <div className="flex flex-col gap-2 items-center">
             <input
               style={{ display: "none" }}
               type="file"
               multiple
-              id="file"
+              id="avatar"
               onChange={handleImageChange}
             />
             <label
@@ -275,14 +311,18 @@ export const ProductForm = ({ categories, initialData }) => {
               </div>
               <p className="text-sm">Click to upload product image</p>
             </label>
+            <div className="flex">
+            <div className="flex">
             {imageURLs.map((imageSrc, index) => (
               <img
                 key={index}
                 src={imageSrc}
                 alt="Preview"
-                className="size-10 ml-2 rounded object-cover"
+                className="size-16 ml-2 rounded object-cover"
               />
             ))}
+            </div>
+            <div className="flex">
             {initialImages
               ? initialImages?.map((image) => (
                   <div key={image.id}>
@@ -297,6 +337,8 @@ export const ProductForm = ({ categories, initialData }) => {
                   </div>
                 ))
               : null}
+            </div>
+            </div>
           </div>
           </div>
           <div className="grid gap-4 md:gap-8 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
@@ -354,6 +396,30 @@ export const ProductForm = ({ categories, initialData }) => {
                 </FormItem>
               )}
             />
+             <FormField
+          control={form.control}
+          name="subcategories"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Sub-categories</FormLabel>
+              <Select onValueChange={field.onChange} multiple>
+                <FormControl>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select a sub-category" />
+                  </SelectTrigger>
+                </FormControl>
+                <SelectContent multiple>
+                  <SelectItem value="mens-clothing-clothing-aparel">Men</SelectItem>
+                  <SelectItem value="womens-clothing-clothing-aparel">Women</SelectItem>
+                </SelectContent>
+              </Select>
+              <FormDescription>
+                Products require at least one sub-category
+              </FormDescription>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
             <div className="grid grid-cols-2 md:block gap-4">
               <FormField
                 control={form.control}
@@ -381,10 +447,6 @@ export const ProductForm = ({ categories, initialData }) => {
                   </FormItem>
                 )}
               />
-              <div>
-                <Label>New Price</Label>
-                <Input readOnly placeholder='100'/>
-              </div>
             </div>
             <FormField
               control={form.control}
@@ -408,26 +470,53 @@ export const ProductForm = ({ categories, initialData }) => {
               )}
             />
             <FormField
-              control={form.control}
-              name="sizes"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>
-                    Sizes{" "}
-                    <span className="text-gray-500 text-sm">(Optional)</span>{" "}
-                  </FormLabel>
-                  <FormControl>
-                    <Input
-                      disabled={loading}
-                      className="placeholder:text-sm"
-                      placeholder="Small, Medium, Large"
-                      {...field}
+                      control={form.control}
+                      name="sizes"
+                      render={() => (
+                        <FormItem>
+                          <div className="mb-4">
+                            <FormLabel className="text-base">Sizes</FormLabel>
+                            <FormDescription>
+                              Select the sizes applicable for this product.
+                            </FormDescription>
+                          </div>
+                          {sizes.map((size) => (
+                            <FormField
+                              key={size.id}
+                              control={form.control}
+                              name="sizes"
+                              render={({ field }) => {
+                                return (
+                                  <FormItem
+                                    key={size.id}
+                                    className="flex flex-row items-start space-x-3 space-y-0"
+                                  >
+                                    <FormControl>
+                                      <Checkbox
+                                        checked={field.value?.includes(size.id)}
+                                        onCheckedChange={(checked) => {
+                                          return checked
+                                            ? field.onChange([...field.value, size.id])
+                                            : field.onChange(
+                                                field.value?.filter(
+                                                  (value) => value !== size.id
+                                                )
+                                              )
+                                        }}
+                                      />
+                                    </FormControl>
+                                    <FormLabel className="font-normal">
+                                      {size.label}
+                                    </FormLabel>
+                                  </FormItem>
+                                )
+                              }}
+                            />
+                          ))}
+                          <FormMessage />
+                        </FormItem>
+                      )}
                     />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
               <FormField
                 control={form.control}
                 name="stock"

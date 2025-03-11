@@ -34,7 +34,7 @@ const CreateStoreSidebar = () => {
         </li>
       ))}
      </ul>
-      <button onClick={() => signOut()} className="flex pl-4 lg:pl-0 gap-2 items-center">
+      <button onClick={() => signOut({ redirect: true, callbackUrl: process.env.NEXTAUTH_URL, })} className="flex pl-4 lg:pl-0 gap-2 items-center">
         <LogOut size={20} strokeWidth={1.25} />
         <span className="hidden lg:inline-flex">
             Logout

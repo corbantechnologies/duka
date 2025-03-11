@@ -52,6 +52,12 @@ export default function Layout({children}) {
     }
 
   return (
-    <div>{children}</div>
+    <div>
+      {shops?.length < 1 && !isPending ?
+       <div>{children}</div>
+       :
+       <Loader2 className="animate-spin" />
+      }
+    </div>
   )
 }
