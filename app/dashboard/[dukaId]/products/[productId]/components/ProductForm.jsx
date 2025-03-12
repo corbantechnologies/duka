@@ -85,6 +85,7 @@ const formSchema = z.object({
 });
 
 export const ProductForm = ({ initialData }) => {
+  //added input for selecting subcategory for product
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const [files, setFiles] = useState([]);
@@ -96,7 +97,6 @@ export const ProductForm = ({ initialData }) => {
   const activeStore = useActiveStore();
   const {
     mutateAsync: createNewProduct,
-    isSuccess,
     isError,
   } = useCreateProduct();
   const {
@@ -198,8 +198,6 @@ export const ProductForm = ({ initialData }) => {
     files.forEach((file) => {
       formData.append("uploaded_images", file);
     });
-    console.log(formData)
-    // return;
     try {
       setLoading(true);
       if (initialData) {
