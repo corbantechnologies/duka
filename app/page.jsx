@@ -10,10 +10,10 @@ function HomePage() {
   return (
     <div className='space-y-10'>
       <Hero/>
-      <Cta/>
       <FeaturedSellers/>
       <Categories/>
       <FeaturedProducts/>
+      <Cta/>
       <Footer/>
     </div>
   )

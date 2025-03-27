@@ -27,7 +27,7 @@ function Categories() {
 
   return (
     <div className="px-4 lg:px-8">
-        <h1 className="text-2xl lg:text-3xl font-semibold">Shop our most popular categories</h1>
+        <h1 className="text-2xl lg:text-3xl font-semibold">Popular categories</h1>
         <div className="grid grid-cols-2 sm:flex gap-5 mt-3 w-full snap-x overflow-auto no-scrollbar">
         {recents.map((recent)=>(
             <div key={recent.img} className="snap-start flex-shrink-0 sm:max-w-[200px]">

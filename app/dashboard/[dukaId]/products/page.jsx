@@ -16,14 +16,14 @@ const ProductsPage = () => {
   const axiosAuth = useAxiosAuth()
   const router = useRouter()
   const {dukaId} = useParams()
-  const storeId = useActiveStore()
+  const activeStore = useActiveStore()
   const {
     data: shop,
     isPending,
   } = useQuery({
-    queryKey: ["getSingleShop", storeId.storeId],
-    queryFn: () => getSingleShop(storeId.storeId,axiosAuth),
-    enabled: !!storeId.storeId,
+    queryKey: ["getSingleShop", activeStore.storeId],
+    queryFn: () => getSingleShop(activeStore.storeId,axiosAuth),
+    enabled: !!activeStore.storeId,
   });
   const {
     data: categories,

@@ -13,10 +13,13 @@ import { useParams } from "next/navigation";
 import { getSingleShop } from "@/tools/api";
 import { useQuery } from "@tanstack/react-query";
 import useAxiosAuth from "@/hooks/general/useAxiosAuth";
+import useActiveStore from "@/hooks/use-active-store";
+import { useEffect } from "react";
 
 function Dashboard() {
   const {dukaId} = useParams();
   const axiosAuth = useAxiosAuth()
+  const activeStore = useActiveStore()
   const {
     data: shop,
   } = useQuery({
@@ -24,6 +27,10 @@ function Dashboard() {
     queryFn: () => getSingleShop(dukaId,axiosAuth),
     enabled: !!dukaId,
   });
+  console.log(shop)
+  useEffect(()=>{
+      activeStore.setStoreName(shop?.duka_id)
+    },[shop?.duka_id])
   return (
     <div className="flex flex-col">
       <div className="flex-1 space-y-4 md:p-6 md:pt-4">

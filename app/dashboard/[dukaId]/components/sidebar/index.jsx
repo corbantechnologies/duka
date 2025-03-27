@@ -62,7 +62,7 @@ const Sidebar = () => {
             Create store
             </span>
      </Link> */}
-      <button onClick={() => signOut()} className="flex pl-4 lg:pl-0 gap-2 items-center">
+      <button onClick={() => signOut({ redirect: true, callbackUrl: process.env.NEXTAUTH_URL, })} className="flex pl-4 lg:pl-0 gap-2 items-center">
         <LogOut size={20} strokeWidth={1.25} />
         <span className="md:hidden lg:inline-flex">
             Logout
@@ -71,7 +71,7 @@ const Sidebar = () => {
     </div>
   );
   return (
-    <div className="full">
+    <div className="h-full">
       <div className="md:hidden fixed my-4">
       <Sheet>
         <SheetTrigger asChild className="ml-4 md:ml-2">
