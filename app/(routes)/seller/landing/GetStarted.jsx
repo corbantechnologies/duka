@@ -1,6 +1,6 @@
 'use client';
 
-import { ChartNoAxesCombined, ShoppingBag, SquareChartGantt, UserRound } from "lucide-react";
+import { ChartNoAxesCombined, ShoppingBag, UserRound } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
@@ -16,12 +16,6 @@ const steps = [
       description: "Enter essential information about your store, including your business name, product categories, and payment details.",
       image:'/store.jpg',
       icon:<ShoppingBag />
-  },
-  {
-      step: "Choose Store Design",
-      description: "Select from a variety of customizable templates to design your store. Tailor the look and feel to match your brand identity.",
-      image:'/templates.webp',
-      icon:<SquareChartGantt />
   },
   {
       step: "Start Selling",

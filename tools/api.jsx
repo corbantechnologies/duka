@@ -39,6 +39,16 @@ export const createStore = async (values, axiosAuth) => {
   }
 }
 
+export const getAllShops = async () => {
+  try {
+    const {data} = await urlMultipartActions.get("/api/shops/list/");
+    return data.results;
+  } catch (error) {
+    console.log('Error fetching shops', error)
+    return error;
+  }
+};
+
 export const getSellerShops = async (axiosAuth) => {
   try {
     const {data} = await urlMultipartActions.get("/api/shops/", axiosAuth);
@@ -49,12 +59,12 @@ export const getSellerShops = async (axiosAuth) => {
   }
 };
 
-export const getSingleShop = async (dukaId, axiosAuth) => {
+export const getSingleShop = async (dukaId) => {
   try {
-    const {data} = await urlMultipartActions.get(`/api/shops/${dukaId}`, axiosAuth);
+    const {data} = await urlMultipartActions.get(`/api/shops/detail/${dukaId}`);
     return data;
   } catch (error) {
-    console.log('Error fetching shops', error)
+    console.log('Error fetching shop', error)
     return error;
   }
 };
@@ -120,5 +130,27 @@ export const getSingleProduct = async (slug, axiosAuth) => {
   } catch (error) {
     console.error('Error fetching single product:', error);
     throw error;
+  }
+};
+
+export const followShop = async (axiosAuth) => {
+  try {
+    const response = await urlActions.post(`/api/follow/`, axiosAuth);
+    if (response.status === 201) {
+      return { success: true };
+    }
+  } catch (error) {
+    console.log('Could not follow shop', error)
+    return error;
+  }
+};
+
+export const getFollowedShops = async (axiosAuth) => {
+  try {
+    const {data} = await urlActions.get(`/api/follow/`, axiosAuth);
+    return data;
+  } catch (error) {
+    console.log('Could not fetch followed shops', error)
+    return error;
   }
 };

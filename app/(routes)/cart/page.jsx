@@ -4,6 +4,7 @@ import useCart from "@/hooks/use-cart";
 import { useEffect, useState } from "react";
 import CartItem from "./components/cart-item";
 import Summary from "./components/summary";
+import ProductList from "@/components/custom/ProductList";
 
 const CartPage = () => {
   const [isMounted, setIsMounted] = useState(false);
@@ -43,6 +44,10 @@ const CartPage = () => {
             </div>
             <Summary />
           </div>
+          <p className="text-xl font-semibold my-5 leading-tight text-gray-900">
+            You might also like
+          </p>
+            <ProductList/>
         </div>
     </div>
   );

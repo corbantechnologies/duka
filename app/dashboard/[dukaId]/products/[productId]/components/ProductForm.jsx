@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Loader2, Trash } from "lucide-react";
+import { Divide, Loader2, Trash, Undo } from "lucide-react";
 import { useEffect, useState } from "react";
 import { z } from "zod";
 
@@ -69,6 +69,25 @@ const sizes = [
   },
 ]
 
+const subcategories = [
+  {
+    id: "Uni-sex",
+    label: "Uni-sex",
+  },
+  {
+    id: "Men",
+    label: "Men",
+  },
+  {
+    id: "Women",
+    label: "Women",
+  },
+  {
+    id: "Children",
+    label: "Children",
+  }
+]
+
 const formSchema = z.object({
   name: z.string().min(2),
   description: z.string().min(2),
@@ -81,7 +100,10 @@ const formSchema = z.object({
   sizes: z.array(z.string()).refine((value) => value.some((item) => item), {
     message: "Select N/A if size is not applicable.",
   }),
-  subcategories: z.string().min(2,{message: 'Select at least one sub-category for your product'})
+  subcategories: z.array(z.string()).refine((value) => value.some((item) => item), {
+    message: "Select at least one sub-category",
+  }),
+  // subcategories: z.string().min(2,{message: 'Select at least one sub-category for your product'})
 });
 
 export const ProductForm = ({ initialData }) => {
@@ -135,6 +157,10 @@ export const ProductForm = ({ initialData }) => {
     });
   };
 
+  const handleNewImageDelete = (image) => {
+    setImageURLs((prev) => prev.filter((url) => url !== image));
+};
+
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -147,7 +173,7 @@ export const ProductForm = ({ initialData }) => {
       is_active: false,
       features: "",
       colors: "",
-      subcategories: "",
+      subcategories: [""],
       sizes: [""],
     },
   });
@@ -159,16 +185,16 @@ export const ProductForm = ({ initialData }) => {
         price: parseFloat(String(initialData.price)),
         features: initialData.features ? initialData?.features?.join(", ") : "",
         colors: initialData.colors ? initialData?.colors?.join(", ") : "",
-        subcategories: initialData.subcategories ? initialData?.subcategories?.join(", ") : "",
+        // subcategories: initialData.subcategories ? initialData?.subcategories?.join(", ") : "",
         // sizes: initialData.sizes ? initialData?.sizes?.join(", ") : "",
       });
     }
   }, [initialData, form]);
 
   const title = initialData ? "Edit Product" : "Create Product";
-  const description = initialData ? "Edit a Product" : "Create a Product";
+  const description = initialData ? `Edit ${initialData?.name}` : "Create a Product";
   const action = initialData ? "Save changes" : "Create";
-  const toastMessage = initialData ? "Product updated" : "Product created";
+  const toastMessage = initialData ? 'Product updated' : "Product created";
 
   const parseInputToArray = (input) => {
     if (!input) return [];
@@ -177,12 +203,9 @@ export const ProductForm = ({ initialData }) => {
       .map((item) => item.trim())
       .filter((item) => item);
   };
-
   async function onSubmit(values) {
     const featuresArray = parseInputToArray(values.features);
     const colorsArray = parseInputToArray(values.colors);
-    const subcategoriesArray = parseInputToArray(values.subcategories);
-    // const sizesArray = parseInputToArray(values.sizes);
     const formData = new FormData();
     formData.append("shop", activeStore.storeName);
     formData.append("name", values.name);
@@ -193,11 +216,17 @@ export const ProductForm = ({ initialData }) => {
     formData.append("is_active", values.is_active);
     formData.append("features", JSON.stringify(featuresArray));
     formData.append("colors", JSON.stringify(colorsArray));
-    formData.append("subcategories", JSON.stringify(subcategoriesArray));
     formData.append("sizes", JSON.stringify(values.sizes));
     files.forEach((file) => {
       formData.append("uploaded_images", file);
     });
+    values.subcategories.forEach((cat)=>{
+      if(cat){
+        formData.append('subcategories', cat)
+      }
+    })
+    console.log(formData)
+    // return;
     try {
       setLoading(true);
       if (initialData) {
@@ -227,6 +256,8 @@ export const ProductForm = ({ initialData }) => {
         if (result.success) {
           toast.success(toastMessage, { id: "createsuccess" });
           router.replace(`/dashboard/${dukaId}/products`);
+        }else{
+          toast.error("Failed to create product. Please try again.");
         }
         if (isError) {
           toast.error("Failed to create product. Please try again.");
@@ -262,6 +293,7 @@ export const ProductForm = ({ initialData }) => {
       setOpen(false);
     }
   };
+
   return (
     <>
       <AlertModal
@@ -288,6 +320,22 @@ export const ProductForm = ({ initialData }) => {
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 ">
           <div>
           <p>Product image</p>
+          <div className="flex flex-wrap my-5 gap-5">
+            {initialImages
+              ? initialImages?.map((image) => (
+                  <div key={image.id} className="flex-shrink-0 rounded-2xl relative">
+                    <img
+                      src={image.image}
+                      alt="Preview"
+                      className="size-48 ml-2 rounded object-cover"
+                    />
+                    <button type="button" className="absolute size-8 grid place-content-center rounded-full bg-blue-100 top-0 -right-[10px]" onClick={() => handleImageDelete(image)}>
+                      {deletedImages.has(image) ? <Undo size={16} /> : <Trash size={16} /> }
+                    </button> 
+                  </div>
+                ))
+              : null}
+            </div>
           <div className="flex flex-col gap-2 items-center">
             <input
               style={{ display: "none" }}
@@ -307,39 +355,25 @@ export const ProductForm = ({ initialData }) => {
                   className="w-12"
                 />
               </div>
-              <p className="text-sm">Click to upload product image</p>
+              <p className="text-sm">Click to upload a new product image</p>
             </label>
-            <div className="flex">
-            <div className="flex">
+            <div className="flex flex-wrap mt-5 gap-5">
             {imageURLs.map((imageSrc, index) => (
-              <img
-                key={index}
-                src={imageSrc}
-                alt="Preview"
-                className="size-16 ml-2 rounded object-cover"
-              />
+              <div  key={index} className="relative rounded-xl flex-shrink-0">
+                <img
+                  src={imageSrc}
+                  alt="Preview"
+                  className="size-40 ml-2 rounded-xl object-cover"
+                />
+                <button type="button" className="absolute size-8 grid place-content-center rounded-full bg-blue-100 top-0 -right-[10px]" onClick={() => handleNewImageDelete(imageSrc)}>
+                  <Trash size={16} />
+                </button> 
+              </div>
             ))}
             </div>
-            <div className="flex">
-            {initialImages
-              ? initialImages?.map((image) => (
-                  <div key={image.id}>
-                    <img
-                      src={image.image}
-                      alt="Preview"
-                      className="size-16 ml-2 rounded object-cover"
-                    />
-                    {/* <button type="button" onClick={() => handleImageDelete(image)}>
-                              {deletedImages.has(image) ? 'Undo Delete' : 'Delete'}
-                            </button>  */}
-                  </div>
-                ))
-              : null}
-            </div>
-            </div>
           </div>
           </div>
-          <div className="grid gap-4 md:gap-8 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-4 md:gap-8 grid-cols-1 md:grid-cols-2 ">
             <FormField
               control={form.control}
               name="name"
@@ -395,30 +429,54 @@ export const ProductForm = ({ initialData }) => {
               )}
             />
              <FormField
-          control={form.control}
-          name="subcategories"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Sub-categories</FormLabel>
-              <Select onValueChange={field.onChange} multiple>
-                <FormControl>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select a sub-category" />
-                  </SelectTrigger>
-                </FormControl>
-                <SelectContent multiple>
-                  <SelectItem value="mens-clothing-clothing-aparel">Men</SelectItem>
-                  <SelectItem value="womens-clothing-clothing-aparel">Women</SelectItem>
-                </SelectContent>
-              </Select>
-              <FormDescription>
-                Products require at least one sub-category
-              </FormDescription>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-            <div className="grid grid-cols-2 md:block gap-4">
+                       control={form.control}
+                       name="subcategories"
+                       render={() => (
+                         <FormItem>
+                           <div className="mb-4">
+                             <FormLabel className="text-base">Sub-categories</FormLabel>
+                             <FormDescription>
+                               Products require at least one sub-category.
+                             </FormDescription>
+                           </div>
+                           {subcategories.map((subcategoy) => (
+                             <FormField
+                               key={subcategoy.id}
+                               control={form.control}
+                               name="subcategories"
+                               render={({ field }) => {
+                                 return (
+                                   <FormItem
+                                     key={subcategoy.id}
+                                     className="flex flex-row items-start space-x-3 space-y-0"
+                                   >
+                                     <FormControl>
+                                       <Checkbox
+                                         checked={field.value?.includes(subcategoy.id)}
+                                         onCheckedChange={(checked) => {
+                                           return checked
+                                             ? field.onChange([...field.value, subcategoy.id])
+                                             : field.onChange(
+                                                 field.value?.filter(
+                                                   (value) => value !== subcategoy.id
+                                                 )
+                                               )
+                                         }}
+                                       />
+                                     </FormControl>
+                                     <FormLabel className="font-normal">
+                                       {subcategoy.label}
+                                     </FormLabel>
+                                   </FormItem>
+                                 )
+                               }}
+                             />
+                           ))}
+                           <FormMessage />
+                         </FormItem>
+                       )}
+                     />
+            <div className="">
               <FormField
                 control={form.control}
                 name="price"

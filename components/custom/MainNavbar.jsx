@@ -1,6 +1,6 @@
 "use client";
 
-import { Gift, Heart, Menu, ShoppingCart } from "lucide-react";
+import { Gift, Heart, Menu, ShoppingCart, User } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -52,13 +52,10 @@ function MainNavbar() {
         className="flex-1 hidden md:block"
         placeholder="Search for anything"
       />
-      <ul className="hidden md:flex flex-1 items-center justify-end gap-5 ">
-        <li>
-          <Gift />
-        </li>
+      <ul className="flex flex-1 items-center justify-end gap-5 ">
         <li>
           <Link href="/wishlist" className="block relative">
-            <Heart />
+            <Heart size={21}/>
             {wishlist.items.length > 0 && (
               <span className="absolute -top-2 left-4 text-xs h-[20px] grid place-items-center aspect-square font-medium bg-primary text-white rounded-full px-1">
                 {wishlist.items.length}
@@ -68,7 +65,7 @@ function MainNavbar() {
         </li>
         <li>
           <Link href="/cart" className="block relative">
-            <ShoppingCart />
+            <ShoppingCart size={21} />
             {cart.items.length > 0 && (
               <span className="absolute -top-2 left-4 border border-white text-xs h-[20px] grid place-items-center aspect-square font-medium bg-primary text-white rounded-full px-1">
                 {cart.items.length}
@@ -77,12 +74,15 @@ function MainNavbar() {
           </Link>
         </li>
         <li>
-          {status !== 'authenticated' && <button className="bg-primary text-white py-2 px-5 rounded-md">
-            <Link href="/auth/login">Sign in</Link>{" "}
-          </button>}
+          {status !== 'authenticated' && 
+          <button className="">
+            <Link href="/auth/login" className="hidden md:block bg-primary text-white py-2 px-5 rounded-md">Sign in</Link>
+            <User className="md:hidden"/>
+          </button>
+          }
         </li>
       </ul>
-      <Menu className="md:hidden text-black" />
+      
     </nav>
   );
 }
