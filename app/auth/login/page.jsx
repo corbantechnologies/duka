@@ -28,12 +28,13 @@ function Login() {
         redirect: false,
       });
       const session = await getSession();
+      console.log(res);
       if (res.error) {
         toast.error("Invalid credentials");
         setLoading(false);
       } else {
         setLoading(false);
-        toast.success("Signin successful");
+        toast.success("Login successful");
         router?.push("/dashboard");
       }
     } catch (error) {
@@ -53,15 +54,18 @@ function Login() {
 
 
   return (
-    <main className="p-5 h-screen flex flex-col">
-      <div>
+    <main className="py-4 h-screen bg-primaryLight flex flex-col">
+      <div className="px-4">
         <Link href="/" className="flex items-center gap-1">
           <Image src="/logo2.png" alt="logo" width={100} height={80} />
         </Link>
       </div>
-      <div className="flex-grow py-5 place-content-center md:w-[460px] mx-auto">
-        <div className="border rounded-lg p-8">
-          <h1 className="text-4xl text-center mb-8">Log in to Duka</h1>
+      <div className="flex-grow py-4 mx-4 place-content-center md:w-[540px] md:mx-auto">
+        <div className="bg-white rounded-lg p-6">
+          <div className="mb-6 pl-2">
+          <h1 className="text-2xl font-semibold">Login to Duka</h1>
+          <span className="text-[#676767] text-sm">Enter your email & password to login</span>
+          </div>
           {/* <div className="flex justify-center">
             <button
               className="flex items-center gap-2 border rounded-full py-3 px-8"
@@ -102,17 +106,26 @@ function Login() {
         </span> */}
             <form onSubmit={handleLogin} className="space-y-8 px-2">
                 <div className="flex flex-col gap-2">
-                    <Label htmlFor='email'>Email</Label>
-                    <Input id='email' name='email' type='email' onChange={handleChange} />
+                    <Label htmlFor='email' className="text-base">Email address <sup className="text-red-500">*</sup> </Label>
+                    <Input id='email' name='email' type='email' className="h-12 rounded-xl" placeholder="Enter your email address" onChange={handleChange} />
                 </div>
                 <div className="flex flex-col gap-2">
-                    <Label htmlFor='password'>Password</Label>
-                    <Input id='password' name='password' type='password' onChange={handleChange} />
+                    <Label htmlFor='password' className="text-base">Password <sup className="text-red-500">*</sup> </Label>
+                    <Input id='password' name='password' type='password' className="h-12 rounded-xl" placeholder="Enter your password" onChange={handleChange} />
                 </div>
-                <div className="flex justify-center w-full">
-                <Button disabled={loading} >{loading ? <Loader2 className="animate-spin" /> : "Login"}</Button>
+                <div className="flex justify-end">
+                  <Link href="#" className="text-sm text-primary">Forgot password?</Link>
                 </div>
+                
+                <Button disabled={loading} className='w-full text-base' >{loading ? <Loader2 className="animate-spin" /> : "Login"}</Button>
+               
             </form>
+            <div className="flex justify-center mt-5">
+              <div className="flex items-center gap-2">
+              <span className="text-[#9c9c9c] text-sm">Don't have an account?</span>
+              <Link href="/auth/register" className="text-sm text-primary">Register now</Link>
+              </div>
+            </div>
             </div>
         </div>
         </main>

@@ -7,27 +7,25 @@ import {
   CardTitle 
 } from "@/components/ui/card";
 import { formatter } from "@/lib/utils";
-import { CreditCard, Package } from "lucide-react";
-import { Heading } from "./components/Heading";
-import { useParams } from "next/navigation";
+import { FileBox, ShoppingBag, TrendingDown, TrendingUp, Users, Wallet } from "lucide-react";
 import { getSingleShop } from "@/tools/api";
 import { useQuery } from "@tanstack/react-query";
-import useAxiosAuth from "@/hooks/general/useAxiosAuth";
 import useActiveStore from "@/hooks/use-active-store";
 import { useEffect } from "react";
+import DashboardCard from "./components/dashboard/Card";
+import RecentOrders from "./components/dashboard/orders/RecentOrders";
+import { Heading } from "./components/Heading";
+import Overview from "./components/overview";
 
 function Dashboard() {
-  const {dukaId} = useParams();
-  const axiosAuth = useAxiosAuth()
   const activeStore = useActiveStore()
   const {
     data: shop,
   } = useQuery({
-    queryKey: ["getSingleShop", dukaId],
-    queryFn: () => getSingleShop(dukaId,axiosAuth),
-    enabled: !!dukaId,
+    queryKey: ["getSingleShop", activeStore.storeId],
+    queryFn: () => getSingleShop(activeStore.storeId),
+    enabled: !!activeStore.storeId,
   });
-  console.log(shop)
   useEffect(()=>{
       activeStore.setStoreName(shop?.duka_id)
     },[shop?.duka_id])
@@ -36,48 +34,21 @@ function Dashboard() {
       <div className="flex-1 space-y-4 md:p-6 md:pt-4">
         <Heading title="Dashboard" description="Overview of your store" />
         <hr />
-        <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
-          <Card className='shadow-md p-4 rounded-lg'>
-            <CardHeader className="flex pl-0 flex-row items-center justify-between space-y-2">
-              <CardTitle className="text-sm font-medium">Total Revenue</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="text-lg sm:text-2xl md:text-3xl font-bold">
-                {formatter.format(7600)}
-              </div>
-            </CardContent>
-          </Card>
-          <Card className='shadow-md p-4 rounded-lg'>
-            <CardHeader className="flex pl-0 flex-row items-center justify-between space-y-2">
-              <CardTitle className="text-sm font-medium">Sales</CardTitle>
-              <CreditCard className="h-4 w-4 text-muted-foreground" />
-            </CardHeader>
-            <CardContent>
-              <div className="text-lg sm:text-2xl md:text-3xl font-bold">
-                +40
-              </div>
-            </CardContent>
-          </Card>
-          <Card className='shadow-md p-4 rounded-lg'>
-            <CardHeader className="flex pl-0 flex-row items-center justify-between space-y-2">
-              <CardTitle className="text-sm font-medium">Products In Stock</CardTitle>
-              <Package className="h-4 w-4 text-muted-foreground" />
-            </CardHeader>
-            <CardContent>
-              <div className="text-lg sm:text-2xl md:text-3xl font-bold">
-                45
-              </div>
-            </CardContent>
-          </Card>
+        <div className="grid gap-4 grid-cols-1 sm:grid-cols-2">
+        <DashboardCard title="Total Sales" value={45} percentage={1.56} icon={<ShoppingBag size={18} />} trend={<TrendingUp color='green'/>} />
+        <DashboardCard title='Total Income' value={formatter.format(7600)} percentage={12} icon={<Wallet size={18} />} trend={<TrendingUp color='green'/>} />
+        <DashboardCard title='Recent Orders' value={5} percentage={1.1} icon={<FileBox size={18}  />} trend={<TrendingUp color='green'/>} />
+        <DashboardCard title='Total Visitors' value={120} percentage={3.1} icon={<Users size={18} />} trend={<TrendingDown color='red'/>} />
         </div>
-        <Card className="col-span-4">
+        {/* <Card className="col-span-4">
           <CardHeader>
             <CardTitle className="text-sm font-medium">Overview</CardTitle>
           </CardHeader>
           <CardContent className="pl-2">
-            {/* <Overview data={graphRevenue} /> */}
+            <Overview data={[]} />
           </CardContent>
-        </Card>
+        </Card> */}
+        <RecentOrders />
       </div>
     </div>
   )

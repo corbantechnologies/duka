@@ -26,11 +26,11 @@ function Navbar({ shops }) {
     const lastInitial = account.last_name ? account.last_name.charAt(0) : "";
     return (firstInitial + lastInitial).toUpperCase();
   };
-  useEffect(()=>{
-    activeStore.setStoreId(dukaId)
-  },[dukaId])
-
   const currentStore = shops?.find((shop) => shop.slug === dukaId);
+  useEffect(()=>{
+    activeStore.setStoreId(currentStore?.duka_id)
+  },[currentStore?.duka_id])
+
   return (
     <nav className="flex items-center w-full bg-white p-4 rounded-lg justify-between">
       <div className="flex gap-x-3 items-center font-semibold">

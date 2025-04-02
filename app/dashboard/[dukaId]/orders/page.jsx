@@ -1,8 +1,11 @@
 import React from 'react'
+import OrderDetails from './components/OrderDetails'
 
 function Orders() {
   return (
-    <div>Development ongoing</div>
+    <div>
+      <OrderDetails/>
+    </div>
   )
 }
 

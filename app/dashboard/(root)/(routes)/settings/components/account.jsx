@@ -1,3 +1,5 @@
+'use client';
+
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
@@ -39,7 +41,6 @@ function AccountSettings() {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(formValues);
     alert("To be implamented");
   };
   return (
@@ -57,7 +58,7 @@ function AccountSettings() {
               />
             ) : (
               <Avatar className="h-16 md:h-20 w-16 md:w-20">
-                <AvatarImage src={account?.avatar}  className="object-cover"/>
+                <AvatarImage src={account?.avatar} className="object-cover"/>
                 <AvatarFallback className="bg-primary md:text-2xl text-white">
                   {getInitials()}
                 </AvatarFallback>

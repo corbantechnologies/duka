@@ -11,7 +11,7 @@ const features = [
     },
     {
         "feature": "Payment Integration",
-        "description": "Seamlessly integrate with MPESA and bank accounts to accept payments from customers.",
+        "description": "Get paid directly to your MPESA and bank accounts.",
         "image" : '/sofa.jpg'
     },
     {
@@ -23,11 +23,6 @@ const features = [
         "feature": "Analytics Dashboard",
         "description": "Access real-time analytics to track sales, customer behavior, and store performance at a glance.",
         "image":"/shoes.jpg"
-    },
-    {
-        "feature": "SEO Tools",
-        "description": "Utilize built-in SEO features to optimize your store for search engines and increase visibility.",
-        "image":"/chair.jpg"
     },
     {
         "feature": "Customer Support",

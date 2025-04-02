@@ -5,6 +5,7 @@ import Categories from '@/components/custom/Categories'
 import FeaturedSellers from '@/components/custom/FeaturedSellers'
 import FeaturedProducts from '@/components/custom/FeaturedProducts'
 import Footer from '@/components/custom/Footer'
+import MoreShops from '@/components/custom/MoreShops'
 
 function HomePage() {
   return (
@@ -13,6 +14,7 @@ function HomePage() {
       <FeaturedSellers/>
       <Categories/>
       <FeaturedProducts/>
+      <MoreShops/>
       <Cta/>
       <Footer/>
     </div>

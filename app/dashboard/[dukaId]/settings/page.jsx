@@ -19,7 +19,7 @@ function Settings() {
       <Button>Upgrade</Button>
       </div>
       <hr />
-      <ul className="flex mt-4 bg-primary w-fit rounded-full p-1 text-white">
+      <ul className="flex mt-4 bg-slate-100 w-fit rounded-full p-1 text-black">
         {settings.map((item)=>(
           <li key={item} 
           className={`px-4 py-1 cursor-pointer rounded-full ${selected === item ? 'bg-white text-black ' : ''}`}
