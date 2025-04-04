@@ -7,7 +7,7 @@ const OrderDetails = () => {
   return (
     <div className='flex flex-col lg:flex-row gap-5'>
       <div>
-        <div className="w-full shadow-md p-5 rounded-md overflow-auto">
+        <div className="w-full border-2 border-slate-100 p-5 rounded-lg overflow-auto">
         <h1 className='font-semibold mb-5 text-lg'>Order Items</h1>
           <table className="w-full min-w-[600px]">
             <thead>
@@ -53,7 +53,7 @@ const OrderDetails = () => {
             </tbody>
           </table>
         </div>
-        <div className='w-full shadow-md p-5 mt-5 rounded-md overflow-auto'>
+        <div className='w-full border-2 border-slate-100 p-5 mt-5 rounded-lg overflow-auto'>
           <div className='flex justify-between'>
           <h1 className='font-semibold'>Order Totals</h1>
           <h1 className='font-semibold'>Price</h1>
@@ -76,7 +76,7 @@ const OrderDetails = () => {
 
       </div>
       <div className='space-y-5'>
-        <div className='p-5 rounded-md shadow-md'>
+        <div className='p-5 rounded-lg border-2 border-slate-100'>
           <h1 className='font-semibold mb-2'>Summary</h1>
           <p className='flex justify-between mb-2'>
             <span className='text-gray-500'>Order ID</span>

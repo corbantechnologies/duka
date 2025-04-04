@@ -21,11 +21,19 @@ export const urlMultipartActions = axios?.create({
 });
 
 export const signUpVendor = async (values) => {
-  await urlActions?.post(`/api/auth/signup/vendor/`, values);
+  await urlMultipartActions?.post(`/api/auth/signup/vendor/`, values);
 };
 
 export const signUpCustomer = async (values) => {
-  await urlActions?.post(`/api/auth/signup/customer/`, values);
+  try {
+    const response = await urlMultipartActions?.post(`/api/auth/signup/customer/`, values);
+    if (response.status === 201) {
+      return { success: true };
+    }
+  } catch (error) {
+    console.log('Error creating customer', error)
+    return error;
+  }
 };
 
 export const createStore = async (values, axiosAuth) => {

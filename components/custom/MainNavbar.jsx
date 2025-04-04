@@ -76,8 +76,10 @@ function MainNavbar() {
         <li>
           {status !== 'authenticated' && 
           <button className="">
-            <Link href="/auth/login" className="hidden md:block bg-primary text-white py-2 px-5 rounded-md">Sign in</Link>
+            <Link href="/auth/login">
+            <span className="hidden md:block bg-primary text-white py-2 px-5 rounded-md">Sign in</span>
             <User className="md:hidden"/>
+            </Link>
           </button>
           }
         </li>

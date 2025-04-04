@@ -36,15 +36,15 @@ export default function SetupLayout({children}) {
     }
   return (
     <HydrationBoundary state={dehydrate(query)}>
-      <main className="h-screen relative overflow-hidden flex flex-col bg-slate-100 gap-4 p-4">
-      <Navbar shops={shops}/>
-        <div className='flex-grow overflow-y-auto flex gap-4'>
-          <div className='absolute top-4 left-[120px] md:relative md:top-0 md:left-0'>
+      <main className="h-screen relative overflow-hidden flex flex-col">
+        <Navbar shops={shops}/>
+        <div className='flex-grow overflow-y-auto flex'>
+          <div className='absolute top-0 right-14 md:relative md:top-0 md:right-0'>
             <Sidebar/>
           </div>
-            <div className='overflow-y-scroll flex-grow bg-white p-4 rounded-lg overflow-hidden'>
-                <div>{children}</div>
-            </div>
+          <div className='overflow-y-scroll flex-grow bg-white p-4 rounded-lg overflow-hidden'>
+            <div>{children}</div>
+          </div>
         </div>
       </main>
     </HydrationBoundary>

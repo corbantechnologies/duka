@@ -16,7 +16,7 @@ export const ProductClient = ({ data }) => {
           title={`Products (${data?.length})`}
           description="Manage products for your store"
         />
-        <Button asChild>
+        <Button asChild className='cursor-pointer'>
           <Link href={`/dashboard/${dukaId}/products/new`}>+ Add </Link>
         </Button>
       </div>

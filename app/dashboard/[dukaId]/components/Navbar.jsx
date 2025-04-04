@@ -32,12 +32,12 @@ function Navbar({ shops }) {
   },[currentStore?.duka_id])
 
   return (
-    <nav className="flex items-center w-full bg-white p-4 rounded-lg justify-between">
+    <nav className="flex items-center w-full p-4 border-b-2 border-b-slate-100 justify-between">
       <div className="flex gap-x-3 items-center font-semibold">
         <Image src="/logo2.png" alt="logo" width={100} height={80} />
       </div>
       <div className="flex items-center gap-5">
-        <div className="hidden md:block">
+        {/* <div className="hidden md:block">
           <Select>
             <SelectTrigger className="w-full">
               <SelectValue placeholder={currentStore?.name} />
@@ -50,8 +50,8 @@ function Navbar({ shops }) {
               ))}
             </SelectContent>
           </Select>
-        </div>
-        <div className="flex items-center gap-1">
+        </div> */}
+        <div className="flex items-center gap-1 mr-8 md:mr-0">
           <Avatar>
             <AvatarImage src={account?.avatar} />
             <AvatarFallback className="bg-primary text-white">

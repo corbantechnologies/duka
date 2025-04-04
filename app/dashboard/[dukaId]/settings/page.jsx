@@ -4,6 +4,7 @@ import { Heading } from "../components/Heading"
 import { useState } from "react";
 import AccountSettings from "./components/account";
 import StoreSettings from "./components/store";
+import BackButton from "@/components/custom/BackButton";
 
 const settings = [
   'Account',
@@ -14,6 +15,7 @@ function Settings() {
   const [selected, setSelected] = useState('Account')
   return (
     <div>
+      <BackButton/>
       <div className="flex justify-between mb-4">
       <Heading title="Settings" description="Manage your profile and store settings here." />
       <Button>Upgrade</Button>

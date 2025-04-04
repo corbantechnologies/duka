@@ -25,11 +25,14 @@ const Sidebar = () => {
     {title:'My Revenue',path:'/revenue', href:`/dashboard/${dukaId}/revenue`, icon: <ChartNoAxesCombined size={20} strokeWidth={1.25} />},
   ]
   const SETTINGS_ITEMS = [
-    {title:'Help',path:'/help', href:`/dashboard/${dukaId}/help`, icon: <CircleHelp size={20} strokeWidth={1.25} />},
+    {title:'Help',path:'/help', href:'#', icon: <CircleHelp size={20} strokeWidth={1.25} />},
     {title:'Settings',path:'/settings', href:`/dashboard/${dukaId}/settings`, icon: <Settings size={20} strokeWidth={1.25} />},
   ]
   const SidebarComponent =( 
     <div className="flex-none bg-white relative p-4 rounded-lg h-full lg:w-[250px] flex flex-col gap-4 overflow-auto">
+      <div className="md:hidden">
+          <Image src="/logo2.png" alt="logo" width={100} height={80} />
+      </div>
       <p className="text-gray-500 md:hidden lg:block">Menu</p>
      <ul className="space-y-3">
       {MENU_ITEMS.map((item)=>(
@@ -91,19 +94,16 @@ const Sidebar = () => {
     </div>
   );
   return (
-    <div className="h-full">
+    <div className="h-full border-r-2 border-slate-100">
       <div className="md:hidden fixed my-4">
       <Sheet>
         <SheetTrigger asChild className="ml-4 md:ml-2">
           <Button variant="ghost" className="mt-[2px] size-sm px-3"><Menu/></Button>
         </SheetTrigger>
-        <SheetContent side='left' className="p-0 w-fit h-full overflow-auto">
+        <SheetContent side='left' className="p-0 w-[85%] h-full overflow-auto">
         <SheetHeader>
         <SheetTitle className='sr-only'>Sidebar</SheetTitle>
         </SheetHeader>
-        <div className="flex ml-3 mt-3 gap-x-3 items-center font-semibold">
-                <Image src="/logo2.png" alt="logo" width={100} height={80} />
-              </div>
           {SidebarComponent}
         </SheetContent>
       </Sheet>

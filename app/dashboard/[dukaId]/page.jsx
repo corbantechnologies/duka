@@ -31,14 +31,14 @@ function Dashboard() {
     },[shop?.duka_id])
   return (
     <div className="flex flex-col">
-      <div className="flex-1 space-y-4 md:p-6 md:pt-4">
+      <div className="flex-1 space-y-4">
         <Heading title="Dashboard" description="Overview of your store" />
         <hr />
         <div className="grid gap-4 grid-cols-1 sm:grid-cols-2">
-        <DashboardCard title="Total Sales" value={45} percentage={1.56} icon={<ShoppingBag size={18} />} trend={<TrendingUp color='green'/>} />
-        <DashboardCard title='Total Income' value={formatter.format(7600)} percentage={12} icon={<Wallet size={18} />} trend={<TrendingUp color='green'/>} />
-        <DashboardCard title='Recent Orders' value={5} percentage={1.1} icon={<FileBox size={18}  />} trend={<TrendingUp color='green'/>} />
-        <DashboardCard title='Total Visitors' value={120} percentage={3.1} icon={<Users size={18} />} trend={<TrendingDown color='red'/>} />
+        <DashboardCard title="Total Sales" value={45} percentage={1.56} icon={<ShoppingBag size={16} color='#676767'/>} trend={<TrendingUp color='green'/>} insight='Trending up this month' action='Customers love your products 😍' />
+        <DashboardCard title='Total Revenue' value={formatter.format(7600)} percentage={12} icon={<Wallet size={16} color='#676767'/>} trend={<TrendingUp color='green'/>} insight='Getting richer by day' action='Your products are in high demand👍' />
+        <DashboardCard title='Recent Orders' value={5} percentage={1.1} icon={<FileBox size={16}  color='#676767'/>} trend={<TrendingUp color='green'/>} insight='Steady performance' action='Remember to deliver fast🚀' />
+        <DashboardCard title='Total Visitors' value={120} percentage={3.1} icon={<Users size={16} color='#676767'/>} trend={<TrendingDown color='red'/>} insight='Fewer visitors this month' action='Leave a link to your store on social media😉' />
         </div>
         {/* <Card className="col-span-4">
           <CardHeader>
