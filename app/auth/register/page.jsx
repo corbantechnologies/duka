@@ -23,6 +23,7 @@ import toast from "react-hot-toast";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { Loader2 } from "lucide-react";
+import { signUpCustomer, signUpVendor } from "@/tools/api";
 
 const formSchema = z
   .object({
@@ -114,23 +115,42 @@ function Register() {
         formData.append(key, newValues[key]);
       }
     }
-    const url = process.env.NEXT_PUBLIC_BASE_URL;
-    await axios
-      .post(`${url}/api/auth/signup/vendor/`, formData)
-      .then(() => {
+    if(values.accountType === "is_vendor"){
+      setLoading(false)
+      await signUpVendor(formData)
+    }else{
+      const res = await signUpCustomer(formData)
+      if(res.success){
+        setLoading(false)
         toast.success("User successfully created", {
           id: "success",
         });
-        setLoading(false);
-        router.push("/auth/login");
-      })
-      .catch((err) => {
+        console.log(res)
+        // router.push("/auth/login");
+      }else{
+        setLoading(false)
         toast.error("Failed to create account. Please try again later", {
           id: "error",
         });
-        console.log(err);
-        setLoading(false);
-      });
+        console.log(res)
+      }
+    }
+    // await axios
+    //   .post('/api/auth/signup/vendor/', formData)
+    //   .then(() => {
+    //     toast.success("User successfully created", {
+    //       id: "success",
+    //     });
+    //     setLoading(false);
+    //     router.push("/auth/login");
+    //   })
+    //   .catch((err) => {
+    //     toast.error("Failed to create account. Please try again later", {
+    //       id: "error",
+    //     });
+    //     console.log(err);
+    //     setLoading(false);
+    //   });
   }
 
   return (
@@ -148,7 +168,7 @@ function Register() {
             className="space-y-8 md:w-[500px] mx-auto"
           >
             <input type="file" onChange={handleFileChange} />
-            <div className="flex gap-3">
+            <div className="flex gap-4">
               <FormField
                 control={form.control}
                 name="first_name"
@@ -176,11 +196,12 @@ function Register() {
                 )}
               />
             </div>
+            <div className="flex gap-4">
             <FormField
               control={form.control}
               name="email"
               render={({ field }) => (
-                <FormItem>
+                <FormItem className="w-full">
                   <FormLabel>Email address</FormLabel>
                   <FormControl>
                     <Input {...field} type="email" required />
@@ -193,7 +214,7 @@ function Register() {
               control={form.control}
               name="phone"
               render={({ field }) => (
-                <FormItem>
+                <FormItem className="w-full">
                   <FormLabel>Phone number</FormLabel>
                   <FormControl>
                     <Input {...field} required />
@@ -202,6 +223,7 @@ function Register() {
                 </FormItem>
               )}
             />
+            </div>
             <FormField
               control={form.control}
               name="accountType"
@@ -212,7 +234,7 @@ function Register() {
                     <RadioGroup
                       onValueChange={field.onChange}
                       defaultValue={field.value}
-                      className="flex flex-col space-y-1"
+                      className="flex items-center space-x-4"
                     >
                       <FormItem className="flex items-center space-x-3 space-y-0">
                         <FormControl>
@@ -282,7 +304,7 @@ function Register() {
                   "Create my account"
                 )}
               </Button>
-              <Link href="/duka/login" className="block">
+              <Link href="/auth/login" className="block">
                 Already have an account?{" "}
                 <span className="text-primary">Login</span>
               </Link>

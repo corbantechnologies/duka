@@ -6,7 +6,7 @@ const RecentOrders = () => {
 
   return(
     <div className="flex-col">
-      <div className="flex-1 space-y-4 md:p-8 md:pt-6">
+      <div className="flex-1 space-y-4 ">
         <ProductClient data={[]} />
       </div>
     </div>

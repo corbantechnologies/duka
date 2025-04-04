@@ -6,6 +6,7 @@ import { getCategories, getSingleShop } from '@/tools/api';
 import { useQuery } from '@tanstack/react-query';
 import { Loader2 } from 'lucide-react';
 import useActiveStore from '@/hooks/use-active-store';
+import BackButton from "@/components/custom/BackButton";
 
 const ProductsPage = () => {
   const activeStore = useActiveStore()
@@ -37,12 +38,15 @@ const ProductsPage = () => {
     discounted_price: formatter.format(item?.discounted_price),
     price: formatter.format(item?.price),
     stock: item.stock,
-    slug:item.slug
+    slug:item.slug,
+    image:item.images[0].image
   }))
   :[];
+  console.log(shop?.products)
   return(
     <div className="flex-col">
-      <div className="flex-1 space-y-4 md:p-8 md:pt-6">
+      <BackButton/>
+      <div className="flex-1 space-y-4">
         <ProductClient data={formattedProducts} categories={categories} />
       </div>
     </div>

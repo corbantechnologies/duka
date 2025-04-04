@@ -191,8 +191,8 @@ export const ProductForm = ({ initialData }) => {
     }
   }, [initialData, form]);
 
-  const title = initialData ? "Edit Product" : "Create Product";
-  const description = initialData ? `Edit ${initialData?.name}` : "Create a Product";
+  const title = initialData ? `Edit ${initialData?.name}` : "Create Product";
+  const description = initialData ? 'Edit your product' : "Create a Product";
   const action = initialData ? "Save changes" : "Create";
   const toastMessage = initialData ? 'Product updated' : "Product created";
 
@@ -327,10 +327,10 @@ export const ProductForm = ({ initialData }) => {
                     <img
                       src={image.image}
                       alt="Preview"
-                      className="size-48 ml-2 rounded object-cover"
+                      className="size-32 lg:size-48 ml-2 rounded object-cover"
                     />
-                    <button type="button" className="absolute size-8 grid place-content-center rounded-full bg-blue-100 top-0 -right-[10px]" onClick={() => handleImageDelete(image)}>
-                      {deletedImages.has(image) ? <Undo size={16} /> : <Trash size={16} /> }
+                    <button type="button" className="absolute size-6 lg:size-8 grid place-content-center rounded-full bg-red-500 top-0 -right-[10px]" onClick={() => handleImageDelete(image)}>
+                      {deletedImages.has(image) ? <Undo className="size-3 lg:size-4" color='white' /> : <Trash className="size-3 lg:size-4" color='white' /> }
                     </button> 
                   </div>
                 ))
