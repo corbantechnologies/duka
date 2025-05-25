@@ -49,7 +49,7 @@ export const createStore = async (values, axiosAuth) => {
 
 export const getAllShops = async () => {
   try {
-    const {data} = await urlMultipartActions.get("/api/shops/list/");
+    const {data} = await urlActions.get("/api/shops/list/");
     return data.results;
   } catch (error) {
     console.log('Error fetching shops', error)
@@ -74,6 +74,22 @@ export const getSingleShop = async (dukaId) => {
   } catch (error) {
     console.log('Error fetching shop', error)
     return error;
+  }
+};
+
+export const getSingleShopProducts = async (dukaId) => {
+  if (!dukaId) {
+    throw new Error('Duka id is required to fetch shop products.');
+  }
+  try {
+    const response = await urlActions.get(`/api/shops/detail/${dukaId}`);
+    if (!response.data) {
+      throw new Error(`No data found for shop with id: ${dukaId}`);
+    }
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching single shop:', error);
+    throw new Error(`Could not fetch single shop details. Please try again later.`);
   }
 };
 
@@ -141,6 +157,22 @@ export const getSingleProduct = async (slug, axiosAuth) => {
   }
 };
 
+export const getSingleProductPublic = async (reference) => {
+  if (!reference) {
+    throw new Error('Product reference is required to fetch product details.');
+  }
+  try {
+    const response = await urlMultipartActions.get(`/api/products/detail/${reference}`);
+    if (!response.data) {
+      throw new Error(`No data found for product with slug: ${reference}`);
+    }
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching single product:', error);
+    throw new Error(`Could not fetch product details. Please try again later.`);
+  }
+};
+
 export const followShop = async (axiosAuth) => {
   try {
     const response = await urlActions.post(`/api/follow/`, axiosAuth);
@@ -162,3 +194,39 @@ export const getFollowedShops = async (axiosAuth) => {
     return error;
   }
 };
+// apis for cart
+export const getCartItems = async (axiosAuth) => {
+  try {
+    const {data} = await urlMultipartActions.get("/api/cart/", axiosAuth);
+    return data;
+  } catch (error) {
+    console.log('Error fetching user cart', error)
+    return error;
+  }
+};
+export const createUserCart = async (values, axiosAuth) => {
+  try {
+    const response = await urlMultipartActions.post(`/api/cart/add/`,values, axiosAuth);
+    if (response.status === 201) {
+      return { success: true };
+    }
+  } catch (error) {
+    console.log('Error creating user cart', error)
+    return error;
+  }
+};
+// end of cart apis
+
+// orders apis
+export const createOrder = async (value, axiosAuth) => {
+  try {
+    const response = await urlMultipartActions.post(`/api/orders/create/new/`,value, axiosAuth);
+    if (response.status === 201) {
+      return { success: true };
+    }
+  } catch (error) {
+    console.log('Error creating order', error)
+    return error;
+  }
+};
+// end of orders apis

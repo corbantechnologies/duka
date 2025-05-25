@@ -15,7 +15,6 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form"
-import toast from "react-hot-toast"
 
 const sizes = [
   {

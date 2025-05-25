@@ -10,7 +10,7 @@ export const columns = [
       <img
         src={row.original?.image}
         alt={`Product image for ${row.original?.name}`}
-        style={{ maxWidth: '50px', maxHeight: '50px' }}
+        style={{ maxWidth: '80px', maxHeight: '80px' }}
       />
     ),
   },

@@ -32,9 +32,9 @@ const wishlist = useWishlist();
   };
   return (
     <div className="relative snap-start flex-shrink-0 w-[150px] sm:w-[160px] md:w-[170px] lg:w-[180px]">
-            <Link href={`/listing/${product.id}`} key={product.id} className='relative'>
-              <div className="border rounded-lg overflow-hidden">
-                <img className="rounded-lg h-44 w-full object-contain mb-1" alt="images of recent views" src={product.images[0].image} />
+            <Link href={`/listing/${product.reference}`} key={product.id} className='relative'>
+              <div className="rounded-lg border overflow-hidden">
+                <img className="rounded-lg h-44 w-full object-contain mb-1" alt="product image" src={product.images[0].image} />
               </div>
                 <p>{product.name}</p>
                 <Currency value={product.price} />

@@ -1,8 +1,14 @@
-import { Heart } from "lucide-react"
-import ProductList from "./ProductList"
-import Link from "next/link"
+'use client';
 
-function MoreProducts() {
+import { Heart } from "lucide-react"
+import Link from "next/link"
+import { useGetSingleShopProducts } from "@/lib/react-query/queriesAndMutations"
+import NewProductList from "./NewProductList";
+
+function MoreProducts({shopId}) {
+  const {
+      data: shop,
+    } = useGetSingleShopProducts(shopId)
   return (
     <div>
         <div className="flex flex-col gap-5 mb-5">
@@ -14,7 +20,7 @@ function MoreProducts() {
                 <Link href='#' className="underline text-sm">View more</Link>
             </div>
         </div>
-        <ProductList wrap='wrap'/>
+        <NewProductList products={shop?.products} />
     </div>
   )
 }

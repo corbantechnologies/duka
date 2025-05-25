@@ -53,7 +53,7 @@ function Navbar({ shops }) {
         </div> */}
         <div className="flex items-center gap-1 mr-8 md:mr-0">
           <Avatar>
-            <AvatarImage src={account?.avatar} />
+            <AvatarImage src={account?.avatar} className='object-cover' />
             <AvatarFallback className="bg-primary text-white">
               {getInitials()}
             </AvatarFallback>

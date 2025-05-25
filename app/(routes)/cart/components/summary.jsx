@@ -1,10 +1,10 @@
 'use client';
 
-import Checkout from "@/components/custom/checkout";
 import Currency from "@/components/custom/currency";
 import { Button } from "@/components/ui/button";
 import useCart from "@/hooks/use-cart";
 import { useState } from "react";
+import Checkout from "./checkout";
 
 const Summary = () => {
   const items = useCart((state) => state.items);
@@ -14,7 +14,6 @@ const Summary = () => {
   const handleLoadingChange = (loading) => {
       setIsLoading(loading);
   };
-const quantity = 1
   const totalPrice = items.reduce((total, item) => {
     return total + item.product.price * item.quantity;
   }, 0);
@@ -39,6 +38,7 @@ const quantity = 1
             disabled={items.length === 0}
             type='button'
             className="w-full mt-6 rounded-full"
+            onClick={()=>setOpenCheckout(true)}
           >
             Check out
           </Button>

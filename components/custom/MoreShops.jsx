@@ -1,5 +1,4 @@
-"use client";
-
+'use client';
 import Image from "next/image";
 import { Heart, Loader2 } from "lucide-react";
 import { useGetShops } from "@/lib/react-query/queriesAndMutations";

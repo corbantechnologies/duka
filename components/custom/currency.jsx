@@ -2,7 +2,7 @@
 import { formatter } from "@/lib/utils";
 import { useEffect, useState } from "react";
 
-const Currency = ({value}) => {
+const Currency = ({value, className}) => {
     const[isMounted, setIsMounted] = useState(false);
     
     useEffect(() => {
@@ -12,7 +12,7 @@ const Currency = ({value}) => {
     if(!isMounted) return null;
     
   return (
-    <div className="text-sm font-semibold">
+    <div className={`text-sm font-semibold ${className}`}>
         {formatter.format(Number(value))}
     </div>
   )
