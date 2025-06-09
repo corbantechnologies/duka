@@ -21,7 +21,7 @@ const useCart = create(
           return;
         }
 
-        const productWithPriceAsNumber = { ...product, price: Number(product.price) };
+        const productWithPriceAsNumber = { ...product, price: Number(product.discount ? product.discounted_price :product.price) };
 
         if (isNaN(productWithPriceAsNumber.price)) {
           console.error("Invalid price for product:", productWithPriceAsNumber);

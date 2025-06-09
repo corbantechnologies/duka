@@ -36,14 +36,14 @@ const CartPage = () => {
   useEffect(() => {
     createUserCart();
   }, [dbCartItems]);
-
   const createUserCart = async () => {
     if (!fetchingCart && !cartFetchError) {
       if (dbCartItems.items.length === 0) {
+        console.log(dbCartItems)
         const data = {
           values: {
             // product_reference: cart.items[0].reference,
-            product_reference: '4AASP7ANUC',
+            product_reference: 'TVTQCOSNY0',
             quantity: cart.items[0].quantity,
           },
           axiosAuth: axiosAuth,

@@ -3,7 +3,8 @@
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import useAxiosAuth from "@/hooks/general/useAxiosAuth";
-import { useCreateOrder } from "@/lib/react-query/queriesAndMutations";
+import { useCreateOrder, useInitializePayment } from "@/lib/react-query/queriesAndMutations";
+import { useRouter } from "next/navigation";
 import { useState } from "react"
 import toast from "react-hot-toast";
 
@@ -11,7 +12,9 @@ const Checkout = () => {
     const [address, setAddress] = useState('')
     const [loading, setLoading] = useState(false)
     const axiosAuth = useAxiosAuth()
+    const router = useRouter()
     const {mutateAsync: createOrder} = useCreateOrder()
+    const {mutateAsync: initializePayment} = useInitializePayment()
 
     const handleSubmit = async (e) =>{
         e.preventDefault()
@@ -24,10 +27,26 @@ const Checkout = () => {
         }
         try {
             const result = await createOrder(data)
-            if (result?.success) {
+            console.log(result)
+            if (result?.status === 201) {
                 toast.success("Order created successfully", {
                   id: "createsuccess",
                 });
+                try {
+                  const formData = new FormData()
+                  formData.append('order_reference',result?.data?.order?.reference)
+                  const data = {
+                    value: formData,
+                    axiosAuth: axiosAuth
+                }
+                  const response = await initializePayment(data)
+                  if(response.status === 200){
+                    router.push(`${response?.data?.redirect_url}`)
+                  }
+                } catch (error) {
+                  toast.error("Failed to initiate payment. Please try again.",{id:'payment_error'});
+                  console.log(error)
+                }
               } else {
                 toast.error("Failed to create order. Please try again.");
               }
@@ -36,6 +55,8 @@ const Checkout = () => {
         }finally{
             setLoading(false)
         }
+
+        
     }
   return (
     <div>

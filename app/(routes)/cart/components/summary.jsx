@@ -15,7 +15,7 @@ const Summary = () => {
       setIsLoading(loading);
   };
   const totalPrice = items.reduce((total, item) => {
-    return total + item.product.price * item.quantity;
+    return total + item.product.discount ? item.product.discounted_price : item.product.price * item.quantity;
   }, 0);
 
   return (

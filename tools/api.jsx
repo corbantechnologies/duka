@@ -222,7 +222,7 @@ export const createOrder = async (value, axiosAuth) => {
   try {
     const response = await urlMultipartActions.post(`/api/orders/create/new/`,value, axiosAuth);
     if (response.status === 201) {
-      return { success: true };
+      return response
     }
   } catch (error) {
     console.log('Error creating order', error)
@@ -230,3 +230,15 @@ export const createOrder = async (value, axiosAuth) => {
   }
 };
 // end of orders apis
+
+// payment api
+export const initializePayment = async (value, axiosAuth) => {
+  try {
+    const response = await urlMultipartActions.post(`/api/payments/submit-order/`,value, axiosAuth);
+    return response
+  } catch (error) {
+    console.log('Error initializing payment', error)
+    return error;
+  }
+};
+// end of payment api

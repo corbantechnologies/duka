@@ -28,9 +28,9 @@ const CartItem = ({ data }) => {
 
   return (
     <li className="flex py-4 border-b lg:py-3">
-      <div className="relative w-20 h-20 sm:w-32 sm:h-32 rounded-md overflow-hidden">
+      <div className="relative w-24 h-24 sm:w-32 sm:h-32 rounded-md overflow-hidden">
         <img
-          src={data.product?.img}
+          src={data.product?.images[0]?.image}
           alt="product"
           className="object-cover object-center border rounded-md"
         />
@@ -45,9 +45,9 @@ const CartItem = ({ data }) => {
           <div className="flex justify-between">
             <p className="text-md font-semibold text-lg sm:text">{data.product.name}</p>
           </div>
-          <p className="text-md text-sm">KSH {data.product.price} x {quantity}</p>
+          <p className="text-md text-sm">KSH {data.product.discount ? data.product.discounted_price : data.product.price} x {quantity}</p>
           <h2 className="mt-2 text-md font-semibold text-sm">Subtotal:</h2>
-          <Currency value={data.product.price * quantity} />
+          <Currency value={data.product.discount ? data.product.discounted_price : data.product.price * quantity} />
 
           <div className="flex items-center space-x-2 mt-2 text-sm">
             <button
