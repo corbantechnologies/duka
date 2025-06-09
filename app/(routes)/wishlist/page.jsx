@@ -11,8 +11,6 @@ const WishlistPage = () => {
     useEffect(() => {
         setIsMounted(true);
     }, []);
-    console.log(wishlist)
-
     if (!isMounted) {
         return null;
     }
