@@ -5,7 +5,7 @@ function WishListLayout({children}) {
   return (
     <div>
          <MainNavbar/>
-         <div className="pt-[70px] relative min-h-screen ">{children}</div>
+         <div className="pt-[80px] relative min-h-screen ">{children}</div>
          <Footer/>
     </div>
   )

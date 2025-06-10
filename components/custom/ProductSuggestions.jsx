@@ -1,4 +1,3 @@
-"use client";
 
 import Link from "next/link";
 import ProductList from "./ProductList";
@@ -11,7 +10,7 @@ function ProductSuggestions() {
   return (
     <div>
       <h1 className="text-2xl lg:text-3xl mb-8 font-semibold">
-        Related to FancyMen
+        You might also like
       </h1>
       {Array.from({ length: 2 }, (_, index) => (
         <div key={index} className="mb-10 space-y-4">

@@ -8,7 +8,7 @@ export default function LoginPage() {
   return (
     <div className="grid min-h-svh lg:grid-cols-2">
       <div className="flex flex-col gap-4 p-4 md:p-6">
-        <div className="flex justify-center gap-2 md:justify-start">
+        <div className="flex">
         <Link href="/" className="flex items-center gap-1">
           <Image src="/logo2.png" alt="logo" width={100} height={80} />
         </Link>

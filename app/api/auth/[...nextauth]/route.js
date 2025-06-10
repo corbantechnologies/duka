@@ -30,8 +30,6 @@ const handler = NextAuth({
         );
         const user = await response?.json();
 
-        console.log(user)
-
         if (response?.ok && user) {
           return user;
         } else {
@@ -75,7 +73,6 @@ const handler = NextAuth({
           );
 
           const data = await response?.json();
-
 
           if (response?.ok && data) {
             return {

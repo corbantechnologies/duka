@@ -40,7 +40,7 @@ import useActiveStore from "@/hooks/use-active-store";
 
 const sizes = [
   {
-    id: "",
+    id: "n/a",
     label: "N/A",
   },
   {
@@ -100,10 +100,17 @@ const formSchema = z.object({
   sizes: z.array(z.string()).refine((value) => value.some((item) => item), {
     message: "Select N/A if size is not applicable.",
   }),
-  subcategories: z.array(z.string()).refine((value) => value.some((item) => item), {
-    message: "Select at least one sub-category",
-  }),
-  // subcategories: z.string().min(2,{message: 'Select at least one sub-category for your product'})
+  // subcategories: z
+  //   .array(z.string())
+  //   .optional()
+  //   .refine(
+  //     (value) => {
+  //       if (!value) {
+  //         return true;
+  //       }
+  //       return value.some((item) => item);
+  //     }
+  //   ),
 });
 
 export const ProductForm = ({ initialData }) => {
@@ -173,7 +180,7 @@ export const ProductForm = ({ initialData }) => {
       is_active: false,
       features: "",
       colors: "",
-      subcategories: [""],
+      // subcategories: [""],
       sizes: [""],
     },
   });
@@ -220,11 +227,11 @@ export const ProductForm = ({ initialData }) => {
     files.forEach((file) => {
       formData.append("uploaded_images", file);
     });
-    values.subcategories.forEach((cat)=>{
-      if(cat){
-        formData.append('subcategories', cat)
-      }
-    })
+    // values.subcategories.forEach((cat)=>{
+    //   if(cat){
+    //     formData.append('subcategories', cat)
+    //   }
+    // })
     console.log(formData)
     // return;
     try {
@@ -428,7 +435,7 @@ export const ProductForm = ({ initialData }) => {
                 </FormItem>
               )}
             />
-             <FormField
+             {/* <FormField
                        control={form.control}
                        name="subcategories"
                        render={() => (
@@ -475,7 +482,7 @@ export const ProductForm = ({ initialData }) => {
                            <FormMessage />
                          </FormItem>
                        )}
-                     />
+                     /> */}
             <div className="">
               <FormField
                 control={form.control}

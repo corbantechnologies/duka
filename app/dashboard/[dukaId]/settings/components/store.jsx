@@ -116,7 +116,7 @@ export default function CreateStore() {
     <hr className="mt-4"/>
         </div>
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="grid grid-cols-1 sm:grid-cols-2 gap-5 gap-y-8">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="grid grid-cols-1 md:grid-cols-2 gap-5 gap-y-8">
         <FormField
           control={form.control}
           name="name"

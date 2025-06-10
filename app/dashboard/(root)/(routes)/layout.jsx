@@ -1,5 +1,3 @@
-"use client"
-
 import CreateStoreNavbar from "./components/navbar"
 import CreateStoreSidebar from "./components/sidebar"
 
