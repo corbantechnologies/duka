@@ -15,32 +15,32 @@ const Summary = () => {
       setIsLoading(loading);
   };
   const totalPrice = items.reduce((total, item) => {
-    return total + item.product.discount ? item.product.discounted_price : item.product.price * item.quantity;
+    return total + (item.product.discount ? item.product.discounted_price : item.product.price) * item.quantity;
   }, 0);
 
   return (
-      <div className="mt-16 rounded-lg bg-slate-100 px-4 py-6 sm:p-6 lg:col-span-5 lg:mt-0 lg:p-8">
-        <h2 className="text-lg font-medium text-gray-900">Order Summary</h2>
+      <div className="mt-16 rounded-lg bg-[#f5f5f5] px-4 py-6 sm:p-6 lg:col-span-5 lg:mt-0 lg:p-8">
+        <h2 className="text-lg font-semibold">Order Summary</h2>
         <div className="mt-6 space-y-4 border-b pb-4 border-gray-200">
           <div className="flex items-center justify-between border-t border-gray-200 pt-4">
-            <div className="text-base font-medium text-gray-900">Order Subtotal</div>
+            <div className="text-base font-semibold">Order Subtotal</div>
             <Currency value={totalPrice} />
           </div>
         </div>
         {openCheckout && 
-          <div>
+          <div className="flex flex-col gap-2">
             <Checkout onLoadingChange={handleLoadingChange}/>
-            <Button variant='outline' disabled={isLoading} className="w-full" onClick={() => setOpenCheckout(false)}>Cancel</Button>
+            <Button variant='outline' disabled={isLoading} className="w-full bg-transparent" onClick={() => setOpenCheckout(false)}>Cancel</Button>
           </div>
         }
         {!openCheckout && 
           <Button
             disabled={items.length === 0}
             type='button'
-            className="w-full mt-6 rounded-full"
+            className="w-full mt-5"
             onClick={()=>setOpenCheckout(true)}
           >
-            Check out
+           Proceed to checkout
           </Button>
         }
       </div>

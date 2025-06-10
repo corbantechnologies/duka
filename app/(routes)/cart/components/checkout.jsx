@@ -1,9 +1,11 @@
 'use client';
 
+import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import useAxiosAuth from "@/hooks/general/useAxiosAuth";
 import { useCreateOrder, useInitializePayment } from "@/lib/react-query/queriesAndMutations";
+import { Loader2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react"
 import toast from "react-hot-toast";
@@ -27,7 +29,6 @@ const Checkout = () => {
         }
         try {
             const result = await createOrder(data)
-            console.log(result)
             if (result?.status === 201) {
                 toast.success("Order created successfully", {
                   id: "createsuccess",
@@ -55,21 +56,18 @@ const Checkout = () => {
         }finally{
             setLoading(false)
         }
-
-        
     }
   return (
-    <div>
+    <div className="mt-5">
         <form onSubmit={handleSubmit}>
-            <Label>Shipping address</Label>
+            <Label htmlFor='address' className='text-[15px]'>Shipping address</Label>
             <Input
             id='address'
             name='address'
-            placeholder='Kasarani,Nairobi'
             onChange={(e)=>setAddress(e.target.value)}
             value={address}
             />
-            <button disabled={loading} type='submit'>{loading ? 'Loading...' :'Checkout' }</button>
+            <Button disabled={loading} type='submit' className='w-full mt-5' >{loading ? <Loader2 className="animate-spin" /> :'Checkout' }</Button>
         </form>
     </div>
   )

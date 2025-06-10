@@ -28,38 +28,38 @@ const CartItem = ({ data }) => {
 
   return (
     <li className="flex py-4 border-b lg:py-3">
-      <div className="relative w-24 h-24 sm:w-32 sm:h-32 rounded-md overflow-hidden">
+      <div className="w-24 h-24 md:w-44 md:h-44 p-2 bg-[#f5f5f5] rounded-md overflow-hidden">
         <img
           src={data.product?.images[0]?.image}
           alt="product"
-          className="object-cover object-center border rounded-md"
+          className="object-contain h-full mx-auto object-center rounded-md"
         />
       </div>
       <div className="relative ml-4 flex flex-1 flex-col justify-between sm:ml-6">
         <div className="absolute z-10 right-0 top-0">
-          <button type="button" className="rounded-full shadow-md p-2" onClick={onRemove}>
+          <button type="button" className="rounded-full shadow-md bg-[#f5f5f5] p-2" onClick={onRemove}>
             <Trash size={18} />
           </button>
         </div>
         <div className="relative pr-9 sm:grid-cols-2 sm:gap-x-6 sm:pr-0">
           <div className="flex justify-between">
-            <p className="text-md font-semibold text-lg sm:text">{data.product.name}</p>
           </div>
-          <p className="text-md text-sm">KSH {data.product.discount ? data.product.discounted_price : data.product.price} x {quantity}</p>
-          <h2 className="mt-2 text-md font-semibold text-sm">Subtotal:</h2>
-          <Currency value={data.product.discount ? data.product.discounted_price : data.product.price * quantity} />
+            <p className="font-semibold text-lg">{data.product.name}</p>
+          <p>KSH {data.product.discount ? data.product.discounted_price : data.product.price} x {quantity}</p>
+          <h2 className="mt-2 font-semibold">Subtotal:</h2>
+          <Currency value={(data.product.discount ? data.product.discounted_price : data.product.price) * quantity} />
 
-          <div className="flex items-center space-x-2 mt-2 text-sm">
+          <div className="flex items-center space-x-4 mt-5 text-sm">
             <button
               onClick={() => handleQuantityChange(Math.max(1, quantity - 1))}
-              className="px-2 py-1 bg-gray-200 rounded hover:bg-gray-300"
+              className="size-7 grid place-content-center bg-[#f5f5f5] rounded-full"
             >
               -
             </button>
             <p>{quantity}</p>
             <button
               onClick={() => handleQuantityChange(quantity + 1)}
-              className="px-2 py-1 bg-gray-200 rounded hover:bg-gray-300"
+              className="size-7 grid place-content-center bg-[#f5f5f5] rounded-full"
             >
               +
             </button>

@@ -1,5 +1,3 @@
-"use client";
-
 import {
   Select,
   SelectContent,
@@ -21,7 +19,7 @@ import Image from "next/image";
 import { Calendar, Heart, Package, Truck } from "lucide-react";
 import Link from "next/link";
 import Currency from "./currency";
-function OrderForm({ product }) {
+function OrderForm({ product, onAddToCart }) {
   console.log(product)
   return (
     <div className="space-y-5 px-1">
@@ -94,7 +92,7 @@ function OrderForm({ product }) {
           </Select>
         </div>
       </div>
-      <button className="w-full rounded-md py-2 bg-primary hover:bg-primary/90 text-white text-[17px]">
+      <button onClick={()=>onAddToCart(product)} className="w-full rounded-md py-2 bg-primary hover:bg-primary/90 text-white text-[17px]">
         Add to Cart
       </button>
       
