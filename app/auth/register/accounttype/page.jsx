@@ -1,17 +1,13 @@
-'use client';
+import AccountTypeClient from "@/components/auth/AccountTypeClient";
+import { Suspense } from "react";
 
-import { useSearchParams } from "next/navigation";
-import RegisterForm from "../components/RegisterForm";
-
-const AccountType = () => {
-    const searchParams = useSearchParams()
- 
-  const accountType = searchParams.get('user')
+export default function AccountTypePage() {
   return (
     <div>
-        <RegisterForm accountType={accountType} />
+      <h1>Register</h1>
+      <Suspense fallback={<div>Loading form...</div>}>
+        <AccountTypeClient />
+      </Suspense>
     </div>
-  )
+  );
 }
-
-export default AccountType
