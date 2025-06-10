@@ -37,7 +37,7 @@ const CartItem = ({ data }) => {
       </div>
       <div className="relative ml-4 flex flex-1 flex-col justify-between sm:ml-6">
         <div className="absolute z-10 right-0 top-0">
-          <button type="button" className="rounded-full shadow-md bg-[#f5f5f5] p-2" onClick={onRemove}>
+          <button type="button" className="rounded-full shadow-md bg-slate-100 p-2" onClick={onRemove}>
             <Trash size={18} />
           </button>
         </div>
@@ -52,14 +52,14 @@ const CartItem = ({ data }) => {
           <div className="flex items-center space-x-4 mt-5 text-sm">
             <button
               onClick={() => handleQuantityChange(Math.max(1, quantity - 1))}
-              className="size-7 grid place-content-center bg-[#f5f5f5] rounded-full"
+              className="size-7 grid place-content-center bg-slate-100 rounded-full"
             >
               -
             </button>
             <p>{quantity}</p>
             <button
               onClick={() => handleQuantityChange(quantity + 1)}
-              className="size-7 grid place-content-center bg-[#f5f5f5] rounded-full"
+              className="size-7 grid place-content-center bg-slate-100 rounded-full"
             >
               +
             </button>

@@ -56,7 +56,7 @@ function ProductInfo({ product }) {
                 ? product?.features?.map((feature) => (
                     <span
                       key={feature}
-                      className="bg-gray-200 mr-2 text-sm px-4 py-1 rounded-full"
+                      className="bg-slate-100 mr-2 text-sm px-4 py-1 rounded-full"
                     >
                       {feature}
                     </span>
